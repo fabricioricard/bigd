@@ -14,22 +14,22 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/pkt-cash/pktd/btcutil/er"
-	"github.com/pkt-cash/pktd/pktlog/log"
-	"github.com/pkt-cash/pktd/wire/protocol"
+	"github.com/bigchain/bigchaind/btcutil/er"
+	"github.com/bigchain/bigchaind/bigchainlog/log"
+	"github.com/bigchain/bigchaind/wire/protocol"
 
-	"github.com/pkt-cash/pktd/btcutil"
-	"github.com/pkt-cash/pktd/chaincfg/chainhash"
-	"github.com/pkt-cash/pktd/database"
-	"github.com/pkt-cash/pktd/database/internal/treap"
-	"github.com/pkt-cash/pktd/goleveldb/leveldb"
-	"github.com/pkt-cash/pktd/goleveldb/leveldb/comparer"
-	ldberrors "github.com/pkt-cash/pktd/goleveldb/leveldb/errors"
-	"github.com/pkt-cash/pktd/goleveldb/leveldb/filter"
-	"github.com/pkt-cash/pktd/goleveldb/leveldb/iterator"
-	"github.com/pkt-cash/pktd/goleveldb/leveldb/opt"
-	"github.com/pkt-cash/pktd/goleveldb/leveldb/util"
-	"github.com/pkt-cash/pktd/wire"
+	"github.com/bigchain/bigchaind/btcutil"
+	"github.com/bigchain/bigchaind/chaincfg/chainhash"
+	"github.com/bigchain/bigchaind/database"
+	"github.com/bigchain/bigchaind/database/internal/treap"
+	"github.com/bigchain/bigchaind/goleveldb/leveldb"
+	"github.com/bigchain/bigchaind/goleveldb/leveldb/comparer"
+	ldberrors "github.com/bigchain/bigchaind/goleveldb/leveldb/errors"
+	"github.com/bigchain/bigchaind/goleveldb/leveldb/filter"
+	"github.com/bigchain/bigchaind/goleveldb/leveldb/iterator"
+	"github.com/bigchain/bigchaind/goleveldb/leveldb/opt"
+	"github.com/bigchain/bigchaind/goleveldb/leveldb/util"
+	"github.com/bigchain/bigchaind/wire"
 )
 
 const (
@@ -1794,18 +1794,21 @@ func (db *db) begin(writable bool) (*transaction, er.R) {
 	// Make sure there is enough available disk space so we can inform the
 	// user of the problem instead of causing a db failure.
 	if writable {
-		freeSpace, err := getAvailableDiskSpace(db.store.basePath)
-		if err != nil {
-			str := "failed to determine available disk space"
-			return nil, makeDbErr(database.ErrDriverSpecific, str, nil)
-		}
-		if freeSpace < uint64(minAvailableSpaceUpdate) {
-			errMsg := fmt.Sprintf("available disk space too low: "+
-				"%.1f MiB", float64(freeSpace)/float64(bytesMiB))
-			return nil, makeDbErr(database.ErrAvailableDiskSpace,
-				errMsg, nil)
-		}
-	}
+    // COMENTADO: Verificação de espaço em disco que falha no Windows
+    /*
+    freeSpace, err := getAvailableDiskSpace(db.store.basePath)
+    if err != nil {
+        str := "failed to determine available disk space"
+        return nil, makeDbErr(database.ErrDriverSpecific, str, nil)
+    }
+    if freeSpace < uint64(minAvailableSpaceUpdate) {
+        errMsg := fmt.Sprintf("available disk space too low: "+
+            "%.1f MiB", float64(freeSpace)/float64(bytesMiB))
+        return nil, makeDbErr(database.ErrAvailableDiskSpace,
+            errMsg, nil)
+    }
+    */
+}
 
 	// Whenever a new writable transaction is started, grab the write lock
 	// to ensure only a single write transaction can be active at the same
