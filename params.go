@@ -6,13 +6,13 @@
 package main
 
 import (
-	"github.com/pkt-cash/pktd/chaincfg"
-	"github.com/pkt-cash/pktd/wire/protocol"
+	"github.com/bigchain/bigchaind/chaincfg"
+	"github.com/bigchain/bigchaind/wire/protocol"
 )
 
 // activeNetParams is a pointer to the parameters specific to the
 // currently active bitcoin network.
-var activeNetParams = &pktMainNetParams
+var activeNetParams = &mainNetParams
 
 // params is used to group parameters for various networks such as the main
 // network and test networks.
@@ -23,9 +23,9 @@ type params struct {
 
 // mainNetParams contains parameters specific to the main network
 // (protocol.MainNet).  NOTE: The RPC port is intentionally different than the
-// reference implementation because pktd does not handle wallet requests.  The
+// reference implementation because bigchaind does not handle wallet requests.  The
 // separate wallet process listens on the well-known port and forwards requests
-// it does not handle on to pktd.  This approach allows the wallet process
+// it does not handle on to bigchaind.  This approach allows the wallet process
 // to emulate the full reference implementation RPC API.
 var mainNetParams = params{
 	Params:  &chaincfg.MainNetParams,
@@ -49,18 +49,18 @@ var testNet3Params = params{
 	rpcPort: "18334",
 }
 
-// pktTestNetParams contains parameters specific to the pkt.cash test network
-// (wire.PktTestNetParams).  NOTE: The RPC port is intentionally different
+// BIGTestNetParams contains parameters specific to the bigfootconnect.tech test network
+// (wire.BIGTestNetParams).  NOTE: The RPC port is intentionally different
 // than the reference implementation - see the mainNetParams comment for details.
-var pktTestNetParams = params{
-	Params:  &chaincfg.PktTestNetParams,
+var BIGTestNetParams = params{
+	Params:  &chaincfg.BIGTestNetParams,
 	rpcPort: "64513",
 }
 
-// pktMainNetParams contains parameters specific to the pkt.cash main network
-// (wire.PktMainNet).
-var pktMainNetParams = params{
-	Params:  &chaincfg.PktMainNetParams,
+// BIGMainNetParams contains parameters specific to the bigfootconnect.tech main network
+// (wire.BIGMainNet).
+var BIGMainNetParams = params{
+	Params:  &chaincfg.BIGMainNetParams,
 	rpcPort: "64765",
 }
 
@@ -72,7 +72,7 @@ var simNetParams = params{
 }
 
 // netName returns the name used when referring to a bitcoin network.  At the
-// time of writing, pktd currently places blocks for testnet version 3 in the
+// time of writing, bigchaind currently places blocks for testnet version 3 in the
 // data and log directory "testnet", which does not match the Name field of the
 // chaincfg parameters.  This function can be used to override this directory
 // name as "testnet" when the passed active network matches protocol.TestNet3.
