@@ -159,11 +159,20 @@ const (
 	// SimNet represents the simulation test network.
 	SimNet BitcoinNet = 0x12141c16
 
+<<<<<<< HEAD
 	// PktTestNet represents the pkt.cash test network.
 	PktTestNet BitcoinNet = 0x070911fc
 
 	// PktMainNet represents the pkt.cash main network.
 	PktMainNet BitcoinNet = 0x082f00fc
+=======
+	// ADICIONAR ESTAS LINHAS:
+	// BIGTestNet represents the BIG test network.
+	BIGTestNet BitcoinNet = 0xb19c4a1f
+
+	// BIGMainNet represents the BIG main network.
+	BIGMainNet BitcoinNet = 0xb19c4a2f
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 )
 
 // bnStrings is a map of bitcoin networks back to their constant names for
@@ -173,8 +182,13 @@ var bnStrings = map[BitcoinNet]string{
 	TestNet:    "TestNet",
 	TestNet3:   "TestNet3",
 	SimNet:     "SimNet",
+<<<<<<< HEAD
 	PktTestNet: "PktTestNet",
 	PktMainNet: "PktMainNet",
+=======
+	BIGTestNet: "BIGTestNet",
+	BIGMainNet: "BIGMainNet",
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 }
 
 // String returns the BitcoinNet in human-readable form.

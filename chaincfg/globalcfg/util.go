@@ -7,7 +7,11 @@ package globalcfg
 import (
 	"math"
 
+<<<<<<< HEAD
 	"github.com/pkt-cash/pktd/btcutil/er"
+=======
+	"github.com/bigchain/bigchaind/btcutil/er"
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 )
 
 // Copyright (c) 2013, 2014 The btcsuite developers
@@ -33,7 +37,11 @@ func round(f float64) int64 {
 // NewAmount is for specifically for converting BTC to Satoshi.
 // For creating a new Amount with an int64 value which denotes a quantity of Satoshi,
 // do a simple type conversion from type int64 to Amount.
+<<<<<<< HEAD
 // See GoDoc for example: http://godoc.org/github.com/pkt-cash/btcutil#example-Amount
+=======
+// See GoDoc for example: http://godoc.org/github.com/bigchain/btcutil#example-Amount
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 func NewAmount(f float64) (int64, er.R) {
 	// The amount is only considered invalid if it cannot be represented
 	// as an integer type.  This may happen if f is NaN or +-Infinity.

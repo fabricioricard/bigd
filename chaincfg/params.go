@@ -11,12 +11,21 @@ import (
 	"strings"
 	"time"
 
+<<<<<<< HEAD
 	"github.com/pkt-cash/pktd/blockchain/packetcrypt/difficulty"
 	"github.com/pkt-cash/pktd/btcutil/er"
 	"github.com/pkt-cash/pktd/wire/protocol"
 
 	"github.com/pkt-cash/pktd/chaincfg/chainhash"
 	"github.com/pkt-cash/pktd/chaincfg/globalcfg"
+=======
+	"github.com/bigchain/bigchaind/blockchain/bigcrypt/difficulty"
+	"github.com/bigchain/bigchaind/btcutil/er"
+	"github.com/bigchain/bigchaind/wire/protocol"
+
+	"github.com/bigchain/bigchaind/chaincfg/chainhash"
+	"github.com/bigchain/bigchaind/chaincfg/globalcfg"
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 )
 
 // These variables are the chain proof-of-work limit parameters for each default
@@ -232,6 +241,7 @@ type Params struct {
 var MainNetParams = Params{
 	Name:        "mainnet",
 	Net:         protocol.MainNet,
+<<<<<<< HEAD
 	DefaultPort: "8333",
 	DNSSeeds: []DNSSeed{
 		{"seed.bitcoin.sipa.be", true},
@@ -241,6 +251,12 @@ var MainNetParams = Params{
 		{"seed.bitnodes.io", false},
 		{"seed.bitcoin.jonasschnelli.ch", true},
 	},
+=======
+	DefaultPort: "8433",
+DNSSeeds: []DNSSeed{
+    {"150.136.245.118", false}, // IP da sua VM
+},
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 
 	// Chain parameters
 	GlobalConf:               globalcfg.BitcoinDefaults(),
@@ -393,7 +409,11 @@ var RegressionNetParams = Params{
 
 	// Human-readable part for Bech32 encoded segwit addresses, as defined in
 	// BIP 173.
+<<<<<<< HEAD
 	Bech32HRPSegwit: "bcrt", // always bcrt for reg test net
+=======
+	Bech32HRPSegwit: "rbig", // always bcrt for reg test net
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 
 	// Address encoding magics
 	PubKeyHashAddrID: 0x6f, // starts with m or n
@@ -505,6 +525,7 @@ var TestNet3Params = Params{
 	HDCoinType: 1,
 }
 
+<<<<<<< HEAD
 // PktTestNetParams defines the network parameters for the test pkt.cash network
 // (version 1).  Not to be confused with the regression test network, this
 // network is sometimes simply called "testnet".
@@ -519,6 +540,22 @@ var PktTestNetParams = Params{
 
 	// Chain parameters
 	GlobalConf: globalcfg.PktDefaults(),
+=======
+// BIGTestNetParams defines the network parameters for the test bigfootconnect.tech
+// (version 1).  Not to be confused with the regression test network, this
+// network is sometimes simply called "testnet".
+var BIGTestNetParams = Params{
+	Name:        "bigtest",
+	Net:         protocol.BIGTestNet,
+	DefaultPort: "19334",
+	DNSSeeds: []DNSSeed{
+		{"testseed.bigchain.network", false},
+		{"testnode.bigchain.network", false},
+	},
+
+	// Chain parameters
+	GlobalConf: globalcfg.BIGDefaults(),
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	InitialNetworkSteward: []byte{
 		0x00, 0x20, 0xd5, 0xc1, 0x00, 0x5c, 0x0d, 0x40,
 		0x12, 0xd3, 0xae, 0x26, 0x72, 0x31, 0x9e, 0x7f,
@@ -533,27 +570,44 @@ var PktTestNetParams = Params{
 	BIP0066Height:            0,
 	CoinbaseMaturity:         100,
 	SubsidyReductionInterval: 2100000,
+<<<<<<< HEAD
 	TargetTimespan:           (time.Hour * 24 * 14) / 10, // 14 days
 	TargetTimePerBlock:       time.Minute,                // 1 minute
 	RetargetAdjustmentFactor: 4,                          // 25% less, 400% more
 	ReduceMinDifficulty:      true,
 	MinDiffReductionTime:     time.Minute * 2, // TargetTimePerBlock * 2
 	GenerateSupported:        false,
+=======
+	TargetTimespan:           (time.Hour * 24 * 14) / 10,
+	TargetTimePerBlock:       time.Minute,
+	RetargetAdjustmentFactor: 4,
+	ReduceMinDifficulty:      true,
+	MinDiffReductionTime:     time.Minute * 2,
+	GenerateSupported:        true,
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 
 	// Checkpoints ordered from oldest to newest.
 	Checkpoints: []Checkpoint{},
 
 	// Consensus rule change deployments.
+<<<<<<< HEAD
 	//
 	// The miner confirmation window is defined as:
 	//   target proof of work timespan / target proof of work spacing
+=======
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	RuleChangeActivationThreshold: 1512, // 75% of MinerConfirmationWindow
 	MinerConfirmationWindow:       2016,
 	Deployments: [DefinedDeployments]ConsensusDeployment{
 		DeploymentTestDummy: {
 			BitNumber:  28,
+<<<<<<< HEAD
 			StartTime:  1199145601, // January 1, 2008 UTC
 			ExpireTime: 1230767999, // December 31, 2008 UTC
+=======
+			StartTime:  1199145601,
+			ExpireTime: 1230767999,
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 		},
 		DeploymentCSV: {
 			StartTime:  math.MaxInt64,
@@ -568,6 +622,7 @@ var PktTestNetParams = Params{
 	// Mempool parameters
 	RelayNonStdTxs: true,
 
+<<<<<<< HEAD
 	// Human-readable part for Bech32 encoded segwit addresses, as defined in
 	// BIP 173.
 	// https://github.com/satoshilabs/slips/blob/master/slip-0173.md
@@ -575,6 +630,13 @@ var PktTestNetParams = Params{
 
 	// Address encoding magics
 	PubKeyHashAddrID:        0x6f, // starts with m or n
+=======
+	// Human-readable part for Bech32 encoded segwit addresses
+	Bech32HRPSegwit: "tbig",
+
+	// Address encoding magics
+	PubKeyHashAddrID:        0x6f, // starts with m or n (testnet)
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	ScriptHashAddrID:        0xc4, // starts with 2
 	WitnessPubKeyHashAddrID: 0x03, // starts with QW
 	WitnessScriptHashAddrID: 0x28, // starts with T7n
@@ -584,6 +646,7 @@ var PktTestNetParams = Params{
 	HDPrivateKeyID: [4]byte{0x04, 0x35, 0x83, 0x94}, // starts with tprv
 	HDPublicKeyID:  [4]byte{0x04, 0x35, 0x87, 0xcf}, // starts with tpub
 
+<<<<<<< HEAD
 	// BIP44 coin type used in the hierarchical deterministic path for
 	// address generation.
 	HDCoinType: 1,
@@ -603,6 +666,25 @@ var PktMainNetParams = Params{
 
 	// Chain parameters
 	GlobalConf: globalcfg.PktDefaults(),
+=======
+	// BIP44 coin type
+	HDCoinType: 1,
+}
+
+// BIGMainNetParams defines the network parameters for the main BIG network
+var BIGMainNetParams = Params{
+	Name:        "bigchain",
+	Net:         protocol.BIGMainNet,
+	DefaultPort: "19333",
+	DNSSeeds: []DNSSeed{
+		{"seed.bigchain.network", false},
+		{"node.bigchain.network", false},
+		{"dnsseed.bigchain.network", false},
+	},
+
+	// Chain parameters
+	GlobalConf: globalcfg.BIGDefaults(),
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	InitialNetworkSteward: []byte{
 		0x00, 0x20, 0xd5, 0xc1, 0x00, 0x5c, 0x0d, 0x40,
 		0x12, 0xd3, 0xae, 0x26, 0x72, 0x31, 0x9e, 0x7f,
@@ -618,6 +700,7 @@ var PktMainNetParams = Params{
 	BIP0066Height:            0,
 	CoinbaseMaturity:         100,
 	SubsidyReductionInterval: -1,
+<<<<<<< HEAD
 	TargetTimespan:           (time.Hour * 24 * 14) / 10, // 1.4 days
 	TargetTimePerBlock:       time.Minute,                // 1 minute
 	RetargetAdjustmentFactor: 4,                          // 25% less, 400% more
@@ -698,13 +781,31 @@ var PktMainNetParams = Params{
 	//
 	// The miner confirmation window is defined as:
 	//   target proof of work timespan / target proof of work spacing
+=======
+	TargetTimespan:           (time.Hour * 24 * 14) / 10,
+	TargetTimePerBlock:       time.Minute,
+	RetargetAdjustmentFactor: 4,
+	ReduceMinDifficulty:      false,
+	MinDiffReductionTime:     time.Minute * 2,
+	GenerateSupported:        true,
+
+	// Checkpoints - vazio para começar
+	Checkpoints: []Checkpoint{},
+
+	// Consensus rule change deployments.
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	RuleChangeActivationThreshold: 1512, // 75% of MinerConfirmationWindow
 	MinerConfirmationWindow:       2016,
 	Deployments: [DefinedDeployments]ConsensusDeployment{
 		DeploymentTestDummy: {
 			BitNumber:  28,
+<<<<<<< HEAD
 			StartTime:  1199145601, // January 1, 2008 UTC
 			ExpireTime: 1230767999, // December 31, 2008 UTC
+=======
+			StartTime:  1199145601,
+			ExpireTime: 1230767999,
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 		},
 		DeploymentCSV: {
 			StartTime:  math.MaxInt64,
@@ -719,6 +820,7 @@ var PktMainNetParams = Params{
 	// Mempool parameters
 	RelayNonStdTxs: false,
 
+<<<<<<< HEAD
 	// Human-readable part for Bech32 encoded segwit addresses, as defined in
 	// BIP 173.
 	// https://github.com/satoshilabs/slips/blob/master/slip-0173.md
@@ -739,6 +841,24 @@ var PktMainNetParams = Params{
 	// address generation.
 	// https://github.com/satoshilabs/slips/blob/master/slip-0044.md
 	HDCoinType: 390,
+=======
+	// Human-readable part for Bech32 encoded segwit addresses
+	Bech32HRPSegwit: "big",
+
+	// Address encoding magics - valores personalizados para BIG
+	PubKeyHashAddrID:        0x1a, // Para começar com 'B'
+	ScriptHashAddrID:        0x1f, // Script addresses
+	WitnessPubKeyHashAddrID: 0xa3, 
+	WitnessScriptHashAddrID: 0x22,
+	PrivateKeyID:            0x9a, // Private keys
+
+	// BIP32 hierarchical deterministic extended key magics
+	HDPrivateKeyID: [4]byte{0x04, 0x88, 0xad, 0xe4}, // starts with xprv
+	HDPublicKeyID:  [4]byte{0x04, 0x88, 0xb2, 0x1e}, // starts with xpub
+
+	// BIP44 coin type - número único para BIG
+	HDCoinType: 999,
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 }
 
 // SimNetParams defines the network parameters for the simulation test Bitcoin
@@ -949,6 +1069,7 @@ func newHashFromStr(hexStr string) *chainhash.Hash {
 }
 
 func init() {
+<<<<<<< HEAD
 	// Register all default networks when the package is initialized.
 	mustRegister(&MainNetParams)
 	mustRegister(&TestNet3Params)
@@ -956,4 +1077,13 @@ func init() {
 	mustRegister(&PktMainNetParams)
 	mustRegister(&RegressionNetParams)
 	mustRegister(&SimNetParams)
+=======
+    // Register all default networks when the package is initialized.
+    mustRegister(&MainNetParams)
+    mustRegister(&TestNet3Params)
+    mustRegister(&RegressionNetParams)
+    mustRegister(&SimNetParams)
+    mustRegister(&BIGTestNetParams)
+    mustRegister(&BIGMainNetParams)
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 }

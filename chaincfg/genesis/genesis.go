@@ -11,9 +11,15 @@ import (
 	"fmt"
 	"time"
 
+<<<<<<< HEAD
 	"github.com/pkt-cash/pktd/chaincfg"
 	"github.com/pkt-cash/pktd/chaincfg/chainhash"
 	"github.com/pkt-cash/pktd/wire"
+=======
+	"github.com/bigchain/bigchaind/chaincfg"
+	"github.com/bigchain/bigchaind/chaincfg/chainhash"
+	"github.com/bigchain/bigchaind/wire"
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 )
 
 var blockReg = make(map[chainhash.Hash]wire.MsgBlock)
@@ -88,8 +94,13 @@ func init() {
 		Transactions: []*wire.MsgTx{&genesisCoinbaseTx},
 	})
 
+<<<<<<< HEAD
 	// pkt
 	register(chaincfg.PktMainNetParams.GenesisHash, blockFromStr(pktTestNetGenesisBlockStr))
+=======
+	// big
+register(chaincfg.BIGMainNetParams.GenesisHash, blockFromStr(pktTestNetGenesisBlockStr))
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 }
 
 // genesisCoinbaseTx is the coinbase transaction for the genesis blocks for
@@ -143,7 +154,11 @@ func blockFromStr(str string) wire.MsgBlock {
 		panic("failed to decode string")
 	}
 	blk := wire.MsgBlock{}
+<<<<<<< HEAD
 	if err := blk.BtcDecode(bytes.NewBuffer(b[8:]), 0, wire.PacketCryptEncoding); err != nil {
+=======
+	if err := blk.BtcDecode(bytes.NewBuffer(b[8:]), 0, wire.BigCryptEncoding); err != nil {
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 		fmt.Printf("Failed to decode block %v\n", err)
 		panic("failed to decode block")
 	}

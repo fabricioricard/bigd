@@ -19,6 +19,7 @@ import (
 	"time"
 
 	flags "github.com/jessevdk/go-flags"
+<<<<<<< HEAD
 	"github.com/pkt-cash/pktd/blockchain"
 	"github.com/pkt-cash/pktd/btcutil"
 	"github.com/pkt-cash/pktd/btcutil/er"
@@ -36,6 +37,25 @@ import (
 
 const (
 	defaultConfigFilename        = "pktd.conf"
+=======
+	"github.com/bigchain/bigchaind/blockchain"
+	"github.com/bigchain/bigchaind/btcutil"
+	"github.com/bigchain/bigchaind/btcutil/er"
+	"github.com/bigchain/bigchaind/chaincfg"
+	"github.com/bigchain/bigchaind/chaincfg/chainhash"
+	"github.com/bigchain/bigchaind/chaincfg/globalcfg"
+	"github.com/bigchain/bigchaind/database"
+	_ "github.com/bigchain/bigchaind/database/ffldb"
+	"github.com/bigchain/bigchaind/mempool"
+	"github.com/bigchain/bigchaind/mining"
+	"github.com/bigchain/bigchaind/peer"
+	"github.com/bigchain/bigchaind/bigchainconfig/version"
+	"github.com/bigchain/bigchaind/bigchainlog/log"
+)
+
+const (
+	defaultConfigFilename        = "bigchaind.conf"
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	defaultDataDirname           = "data"
 	defaultLogLevel              = "info"
 	defaultLogDirname            = "logs"
@@ -66,7 +86,11 @@ const (
 )
 
 var (
+<<<<<<< HEAD
 	defaultHomeDir     = btcutil.AppDataDir("pktd", false)
+=======
+	defaultHomeDir     = btcutil.AppDataDir("bigchaind", false)
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	defaultConfigFile  = filepath.Join(defaultHomeDir, defaultConfigFilename)
 	defaultDataDir     = filepath.Join(defaultHomeDir, defaultDataDirname)
 	knownDbTypes       = database.SupportedDrivers()
@@ -88,7 +112,11 @@ func minUint32(a, b uint32) uint32 {
 	return b
 }
 
+<<<<<<< HEAD
 // config defines the configuration options for pktd.
+=======
+// config defines the configuration options for bigchaind.
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 //
 // See loadConfig for details on the configuration load process.
 type config struct {
@@ -105,8 +133,13 @@ type config struct {
 	BanDuration          time.Duration `long:"banduration" description:"How long to ban misbehaving peers.  Valid time units are {s, m, h}.  Minimum 1 second"`
 	BanThreshold         uint32        `long:"banthreshold" description:"Maximum allowed ban score before disconnecting and banning misbehaving peers."`
 	Whitelists           []string      `long:"whitelist" description:"Add an IP network or IP that will not be banned. (eg. 192.168.1.0/24 or ::1)"`
+<<<<<<< HEAD
 	AgentBlacklist       []string      `long:"agentblacklist" description:"A comma separated list of user-agent substrings which will cause pktd to reject any peers whose user-agent contains any of the blacklisted substrings."`
 	AgentWhitelist       []string      `long:"agentwhitelist" description:"A comma separated list of user-agent substrings which will cause pktd to require all peers' user-agents to contain one of the whitelisted substrings. The blacklist is applied before the blacklist, and an empty whitelist will allow all agents that do not fail the blacklist."`
+=======
+	AgentBlacklist       []string      `long:"agentblacklist" description:"A comma separated list of user-agent substrings which will cause bigchaind to reject any peers whose user-agent contains any of the blacklisted substrings."`
+	AgentWhitelist       []string      `long:"agentwhitelist" description:"A comma separated list of user-agent substrings which will cause bigchaind to require all peers' user-agents to contain one of the whitelisted substrings. The blacklist is applied before the blacklist, and an empty whitelist will allow all agents that do not fail the blacklist."`
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	HomeDir              string        `long:"homedir" description:"Creates this directory at startup"`
 	RPCUser              string        `short:"u" long:"rpcuser" description:"Username for RPC connections"`
 	RPCPass              string        `short:"P" long:"rpcpass" default-mask:"-" description:"Password for RPC connections"`
@@ -125,9 +158,15 @@ type config struct {
 	DisableDNSSeed       bool          `long:"nodnsseed" description:"Disable DNS seeding for peers"`
 	ExternalIPs          []string      `long:"externalip" description:"Add an ip to the list of local addresses we claim to listen on to peers"`
 	TestNet3             bool          `long:"testnet" description:"Use the test network"`
+<<<<<<< HEAD
 	PktTest              bool          `long:"pkttest" description:"Use the pkt.cash test network"`
 	BtcMainNet           bool          `long:"btc" description:"Use the bitcoin main network"`
 	PktMainNet           bool          `long:"pkt" description:"Use the pkt.cash main network"`
+=======
+	BIGTest              bool          `long:"bigtest" description:"Use the bigfootconnect.tech test network"`
+	BtcMainNet           bool          `long:"btc" description:"Use the bitcoin main network"`
+	BIGMainNet           bool          `long:"big" description:"Use the bigfootconnect.tech main network"`
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	RegressionTest       bool          `long:"regtest" description:"Use the regression test network"`
 	SimNet               bool          `long:"simnet" description:"Use the simulation test network"`
 	AddCheckpoints       []string      `long:"addcheckpoint" description:"Add a custom checkpoint.  Format: '<height>:<hash>'"`
@@ -143,7 +182,11 @@ type config struct {
 	NoRelayPriority      bool          `long:"norelaypriority" description:"Do not require free or low-fee transactions to have high priority for relaying"`
 	TrickleInterval      time.Duration `long:"trickleinterval" description:"Minimum time between attempts to send new inventory to a connected peer"`
 	MaxOrphanTxs         int           `long:"maxorphantx" description:"Max number of orphan transactions to keep in memory"`
+<<<<<<< HEAD
 	Generate             bool          `long:"generate" hidden:"true" description:"Generate (mine) bitcoins using the CPU - doesn't work for PacketCrypt"`
+=======
+	Generate             bool          `long:"generate" hidden:"true" description:"Generate (mine) bitcoins using the CPU - doesn't work for BigCrypt"`
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	Coinbase             string        `long:"coinbase" description:"Include this message in generated coinbase"`
 	MiningAddrs          []string      `long:"miningaddr" description:"Add the specified payment address to the list of addresses to use for generated blocks -- At least one address is required if the generate option is set"`
 	BlockMinSize         uint32        `long:"blockminsize" description:"Mininum block size in bytes to be used when creating a block"`
@@ -333,7 +376,11 @@ func newConfigParser(cfg *config, so *serviceOptions, options flags.Options) *fl
 // 	3) Load configuration file overwriting defaults with any specified options
 // 	4) Parse CLI options and overwrite/add any specified options
 //
+<<<<<<< HEAD
 // The above results in pktd functioning properly without any config settings
+=======
+// The above results in bigchaind functioning properly without any config settings
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 // while still allowing the user to override settings with config files and
 // command line options.  Command line options always take precedence.
 func loadConfig() (*config, []string, er.R) {
@@ -357,7 +404,11 @@ func loadConfig() (*config, []string, er.R) {
 		FreeTxRelayLimit:     defaultFreeTxRelayLimit,
 		TrickleInterval:      defaultTrickleInterval,
 		Coinbase:             mining.DefaultCoinbaseFlags,
+<<<<<<< HEAD
 		MiningAddrs:          []string{"pkt1q6hqsqhqdgqfd8t3xwgceulu7k9d9w5t2amath0qxyfjlvl3s3u4sjza2g2"},
+=======
+		MiningAddrs:          []string{},
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 		BlockMinSize:         defaultBlockMinSize,
 		BlockMaxSize:         defaultBlockMaxSize,
 		BlockMinWeight:       defaultBlockMinWeight,
@@ -467,17 +518,29 @@ func loadConfig() (*config, []string, er.R) {
 		numNets++
 		activeNetParams = &testNet3Params
 	}
+<<<<<<< HEAD
 	if cfg.PktTest {
 		numNets++
 		activeNetParams = &pktTestNetParams
+=======
+	if cfg.BIGTest {
+		numNets++
+		activeNetParams = &BIGTestNetParams
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	}
 	if cfg.BtcMainNet {
 		numNets++
 		activeNetParams = &mainNetParams
 	}
+<<<<<<< HEAD
 	if cfg.PktMainNet {
 		numNets++
 		activeNetParams = &pktMainNetParams
+=======
+	if cfg.BIGMainNet {
+		numNets++
+		activeNetParams = &BIGMainNetParams
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	}
 	if cfg.RegressionTest {
 		numNets++
@@ -681,7 +744,11 @@ func loadConfig() (*config, []string, er.R) {
 			err.AddMessage("Unable to get random numbers")
 			return nil, nil, err
 		}
+<<<<<<< HEAD
 		cfg.RPCUser = "__PKT_COOKIE__"
+=======
+		cfg.RPCUser = "__BIG_COOKIE__"
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 		cfg.RPCPass = hex.EncodeToString(buf[:])
 		cookie := cfg.RPCUser + ":" + cfg.RPCPass
 		if errr := ioutil.WriteFile(cookiePath, []byte(cookie), 0600); errr != nil {
@@ -923,6 +990,7 @@ func loadConfig() (*config, []string, er.R) {
 	return &cfg, remainingArgs, nil
 }
 
+<<<<<<< HEAD
 // pktdDial connects to the address on the named network using the appropriate
 // dial function depending on the address and configuration options.
 func pktdDial(addr net.Addr) (net.Conn, er.R) {
@@ -932,5 +1000,16 @@ func pktdDial(addr net.Addr) (net.Conn, er.R) {
 // pktdLookup resolves the IP of the given host using the correct DNS lookup
 // function depending on the configuration options.
 func pktdLookup(host string) ([]net.IP, er.R) {
+=======
+// bigchaindDial connects to the address on the named network using the appropriate
+// dial function depending on the address and configuration options.
+func bigchaindDial(addr net.Addr) (net.Conn, er.R) {
+	return cfg.dial(addr.Network(), addr.String(), defaultConnectTimeout)
+}
+
+// bigchaindLookup resolves the IP of the given host using the correct DNS lookup
+// function depending on the configuration options.
+func bigchaindLookup(host string) ([]net.IP, er.R) {
+>>>>>>> d6714b9cb42dc606fe9f1b643c1c8a642db2d70b
 	return cfg.lookup(host)
 }
