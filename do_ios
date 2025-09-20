@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+
+mkdir -p lib
+
+echo "Building for arm64..."
+CGO_ENABLED=1 \
+GOOS=ios \
+GOARCH=arm64 \
+SDK=iphoneos \
+CGO_ENABLED=1 \
+CC=$(PWD)/clangwrap.sh \
+CGO_CFLAGS="-fembed-bitcode" \
+go build -buildmode=c-archive -tags ios -trimpath -o lib/pld_arm64.a lnd/cmd/lnd/main.go
+
+echo "Building for x86_64..."
+CGO_ENABLED=1 \
+GOOS=ios \
+GOARCH=amd64 \
+SDK=iphonesimulator \
+CGO_ENABLED=1 \
+CC=$(PWD)/clangwrap.sh \
+go build -buildmode=c-archive -tags ios -trimpath -o lib/pld_amd64.a lnd/cmd/lnd/main.go
+
+# /usr/bin/lipo ./lib/pld_arm64.a ./lib/pld_amd64.a -create -output ./lib/ios/pld.a
+
+xcodebuild -create-xcframework -output lib/pld.xcframework -library lib/pld_arm64.a -library lib/pld_amd64.a
+cp lib/pld_amd64.h lib/pld.h
+
+echo "output file in lib/pld.xcframework"
+echo "header file in lib/pld.h"

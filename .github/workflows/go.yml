@@ -1,0 +1,41 @@
+name: Go
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+  pull_request:
+    types: [synchronize]
+    branches:
+      - master
+      - develop
+
+env:
+  HOME_PATH: ${{ github.workspace }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16.x
+
+      - name: Build
+        shell: bash
+        run: |
+          cd ${HOME_PATH}
+          ./do
+
+      - name: Integration Tests
+        shell: bash
+        run: |
+          cd ${HOME_PATH}
+          ./do --test

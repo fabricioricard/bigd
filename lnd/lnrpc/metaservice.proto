@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package lnrpc;
+
+import "pkt.proto";
+import "rpc.proto";
+
+option go_package = "github.com/pkt-cash/pktd/lnd/lnrpc";
+
+service MetaService {
+    /*
+    $pld.category: `Meta`
+    $pld.short_description: `Returns basic information related to the active daemon`
+
+    GetInfo returns general information concerning the lightning node including
+    it's identity pubkey, alias, the chains it is connected to, and information
+    concerning the number of open+pending channels.
+    */
+    rpc GetInfo2 (GetInfo2Request) returns (GetInfo2Response);
+
+    /*
+    $pld.category: `Wallet`
+    $pld.short_description: `Change an encrypted wallet's password at startup`
+
+    ChangePassword changes the password of the encrypted wallet. This will
+    automatically unlock the wallet database if successful.
+    */
+    rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse);
+
+    /*
+    $pld.category: `Wallet`
+    $pld.short_description: `Check the wallet's password`
+
+    CheckPassword verify that the password in the request is valid for the wallet.
+    */
+    rpc CheckPassword (CheckPasswordRequest) returns (CheckPasswordResponse);
+
+    /*
+    $pld.category: `Meta`
+    $pld.short_description: `Force pld to crash (for debugging purposes)`
+
+    Force a pld crash (for debugging purposes)
+    */
+    rpc ForceCrash (CrashRequest) returns (CrashResponse);
+}
+
+message GetInfo2Request {}
+
+message GetInfo2Response { 
+    NeutrinoInfo neutrino = 1;
+    WalletInfo wallet = 2;
+    GetInfoResponse lightning = 3;
+}
+
+message ChangePasswordRequest {
+    /*
+    current_password should be the current valid passphrase used to unlock the daemon.
+    */
+    string current_passphrase = 1;
+
+    /*
+    Binary form of current_passphrase, if specified will override current_passphrase.
+    When using JSON, this field must be encoded as base64.
+    */
+    bytes current_password_bin = 2;
+
+    /*
+    new_passphrase should be the new passphrase that will be needed to unlock the
+    daemon.
+    */
+    string new_passphrase = 3;
+
+    /*
+    Binary form of new_passphrase, if specified will override new_passphrase.
+    When using JSON, this field must be encoded as base64.
+    */
+    bytes new_passphrase_bin = 4;
+
+    /*wallet_name is optional, if specified will override default wallet.db*/
+    string wallet_name = 5;
+}
+
+message ChangePasswordResponse {}
+
+message CheckPasswordRequest {
+    /*
+    current_password should be the current valid passphrase used to unlock the daemon.
+    */
+    string wallet_passphrase = 1;
+
+    /*
+    Binary form of current_passphrase, if specified will override current_passphrase.
+    When using JSON, this field must be encoded as base64.
+    */
+    bytes wallet_password_bin = 2;
+
+    /*wallet_name is optional, if specified will override default wallet.db*/
+    string wallet_name = 3;
+}
+
+message CheckPasswordResponse {
+    bool valid_passphrase = 1;
+}
+
+message CrashRequest{
+}
+
+message CrashResponse{
+}

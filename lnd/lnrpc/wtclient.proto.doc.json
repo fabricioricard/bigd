@@ -1,0 +1,706 @@
+{
+  "files": [
+    {
+      "name": "wtclientrpc/wtclient.proto",
+      "description": "",
+      "package": "wtclientrpc",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AddTowerRequest",
+          "longName": "AddTowerRequest",
+          "fullName": "wtclientrpc.AddTowerRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pubkey",
+              "description": "The identifying public key of the watchtower to add.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "address",
+              "description": "A network address the watchtower is reachable over.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AddTowerResponse",
+          "longName": "AddTowerResponse",
+          "fullName": "wtclientrpc.AddTowerResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetTowerInfoRequest",
+          "longName": "GetTowerInfoRequest",
+          "fullName": "wtclientrpc.GetTowerInfoRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pubkey",
+              "description": "The identifying public key of the watchtower to retrieve information for.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "include_sessions",
+              "description": "Whether we should include sessions with the watchtower in the response.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListTowersRequest",
+          "longName": "ListTowersRequest",
+          "fullName": "wtclientrpc.ListTowersRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "include_sessions",
+              "description": "Whether we should include sessions with the watchtower in the response.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListTowersResponse",
+          "longName": "ListTowersResponse",
+          "fullName": "wtclientrpc.ListTowersResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "towers",
+              "description": "The list of watchtowers available for new backups.",
+              "label": "repeated",
+              "type": "Tower",
+              "longType": "Tower",
+              "fullType": "wtclientrpc.Tower",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PolicyRequest",
+          "longName": "PolicyRequest",
+          "fullName": "wtclientrpc.PolicyRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "PolicyResponse",
+          "longName": "PolicyResponse",
+          "fullName": "wtclientrpc.PolicyResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "max_updates",
+              "description": "The maximum number of updates each session we negotiate with watchtowers\nshould allow.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sweep_sat_per_byte",
+              "description": "The fee rate, in satoshis per vbyte, that will be used by watchtowers for\njustice transactions in response to channel breaches.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RemoveTowerRequest",
+          "longName": "RemoveTowerRequest",
+          "fullName": "wtclientrpc.RemoveTowerRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pubkey",
+              "description": "The identifying public key of the watchtower to remove.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "address",
+              "description": "If set, then the record for this address will be removed, indicating that is\nis stale. Otherwise, the watchtower will no longer be used for future\nsession negotiations and backups.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RemoveTowerResponse",
+          "longName": "RemoveTowerResponse",
+          "fullName": "wtclientrpc.RemoveTowerResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "StatsRequest",
+          "longName": "StatsRequest",
+          "fullName": "wtclientrpc.StatsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "StatsResponse",
+          "longName": "StatsResponse",
+          "fullName": "wtclientrpc.StatsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "num_backups",
+              "description": "The total number of backups made to all active and exhausted watchtower\nsessions.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "num_pending_backups",
+              "description": "The total number of backups that are pending to be acknowledged by all\nactive and exhausted watchtower sessions.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "num_failed_backups",
+              "description": "The total number of backups that all active and exhausted watchtower\nsessions have failed to acknowledge.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "num_sessions_acquired",
+              "description": "The total number of new sessions made to watchtowers.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "num_sessions_exhausted",
+              "description": "The total number of watchtower sessions that have been exhausted.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Tower",
+          "longName": "Tower",
+          "fullName": "wtclientrpc.Tower",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pubkey",
+              "description": "The identifying public key of the watchtower.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "addresses",
+              "description": "The list of addresses the watchtower is reachable over.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "active_session_candidate",
+              "description": "Whether the watchtower is currently a candidate for new sessions.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "num_sessions",
+              "description": "The number of sessions that have been negotiated with the watchtower.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sessions",
+              "description": "The list of sessions that have been negotiated with the watchtower.",
+              "label": "repeated",
+              "type": "TowerSession",
+              "longType": "TowerSession",
+              "fullType": "wtclientrpc.TowerSession",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TowerSession",
+          "longName": "TowerSession",
+          "fullName": "wtclientrpc.TowerSession",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "num_backups",
+              "description": "The total number of successful backups that have been made to the\nwatchtower session.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "num_pending_backups",
+              "description": "The total number of backups in the session that are currently pending to be\nacknowledged by the watchtower.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "max_backups",
+              "description": "The maximum number of backups allowed by the watchtower session.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sweep_sat_per_byte",
+              "description": "The fee rate, in satoshis per vbyte, that will be used by the watchtower for\nthe justice transaction in the event of a channel breach.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "WatchtowerClient",
+          "longName": "WatchtowerClient",
+          "fullName": "wtclientrpc.WatchtowerClient",
+          "description": "WatchtowerClient is a service that grants access to the watchtower client\nfunctionality of the daemon.",
+          "methods": [
+            {
+              "name": "AddTower",
+              "description": "$pld.category: `Watchtower`\n$pld.short_description: `Register a watchtower to use for future sessions/backups`\n\nAddTower adds a new watchtower reachable at the given address and\nconsiders it for new sessions. If the watchtower already exists, then\nany new addresses included will be considered when dialing it for\nsession negotiations and backups.",
+              "requestType": "AddTowerRequest",
+              "requestLongType": "AddTowerRequest",
+              "requestFullType": "wtclientrpc.AddTowerRequest",
+              "requestStreaming": false,
+              "responseType": "AddTowerResponse",
+              "responseLongType": "AddTowerResponse",
+              "responseFullType": "wtclientrpc.AddTowerResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "RemoveTower",
+              "description": "$pld.category: `Watchtower`\n$pld.short_description: `Remove a watchtower to prevent its use for future sessions/backups`\n\nRemoveTower removes a watchtower from being considered for future session\nnegotiations and from being used for any subsequent backups until it's added\nagain. If an address is provided, then this RPC only serves as a way of\nremoving the address from the watchtower instead.",
+              "requestType": "RemoveTowerRequest",
+              "requestLongType": "RemoveTowerRequest",
+              "requestFullType": "wtclientrpc.RemoveTowerRequest",
+              "requestStreaming": false,
+              "responseType": "RemoveTowerResponse",
+              "responseLongType": "RemoveTowerResponse",
+              "responseFullType": "wtclientrpc.RemoveTowerResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListTowers",
+              "description": "$pld.category: `Watchtower`\n$pld.short_description: `Display information about all registered watchtowers`\n\nListTowers returns the list of watchtowers registered with the client.",
+              "requestType": "ListTowersRequest",
+              "requestLongType": "ListTowersRequest",
+              "requestFullType": "wtclientrpc.ListTowersRequest",
+              "requestStreaming": false,
+              "responseType": "ListTowersResponse",
+              "responseLongType": "ListTowersResponse",
+              "responseFullType": "wtclientrpc.ListTowersResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "GetTowerInfo",
+              "description": "$pld.category: `Watchtower`\n$pld.short_description: `Display information about a specific registered watchtower`\n\nGetTowerInfo retrieves information for a registered watchtower.",
+              "requestType": "GetTowerInfoRequest",
+              "requestLongType": "GetTowerInfoRequest",
+              "requestFullType": "wtclientrpc.GetTowerInfoRequest",
+              "requestStreaming": false,
+              "responseType": "Tower",
+              "responseLongType": "Tower",
+              "responseFullType": "wtclientrpc.Tower",
+              "responseStreaming": false
+            },
+            {
+              "name": "Stats",
+              "description": "$pld.category: `Watchtower`\n$pld.short_description: `Display the session stats of the watchtower client`\n\nStats returns the in-memory statistics of the client since startup.",
+              "requestType": "StatsRequest",
+              "requestLongType": "StatsRequest",
+              "requestFullType": "wtclientrpc.StatsRequest",
+              "requestStreaming": false,
+              "responseType": "StatsResponse",
+              "responseLongType": "StatsResponse",
+              "responseFullType": "wtclientrpc.StatsResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "Policy",
+              "description": "$pld.category: `Watchtower`\n$pld.short_description: `Display the active watchtower client policy configuration`\n\nPolicy returns the active watchtower client policy configuration.",
+              "requestType": "PolicyRequest",
+              "requestLongType": "PolicyRequest",
+              "requestFullType": "wtclientrpc.PolicyRequest",
+              "requestStreaming": false,
+              "responseType": "PolicyResponse",
+              "responseLongType": "PolicyResponse",
+              "responseFullType": "wtclientrpc.PolicyResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

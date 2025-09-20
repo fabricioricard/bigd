@@ -1,0 +1,59 @@
+# Temp files
+*~
+lib
+
+# Databases
+btcd.db
+*-shm
+*-wal
+
+# Log files
+*.log
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
+*.so
+
+# Folders
+_obj
+_test
+vendor
+_vendor
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+_testmain.go
+
+*.exe
+/bin
+/pktd.test
+/wallettool
+
+# IDE
+.vscode
+
+# Coverage
+/gocov_report_pktd.txt
+/gocov_report_pktd.html
+/gocov_report_pktd.json
+/gocov_report_goleveldb.txt
+/gocov_report_goleveldb.html
+/gocov_report_goleveldb.json
+/goleveldb/gocov_report_goleveldb.txt
+/goleveldb/gocov_report_goleveldb.html
+/goleveldb/gocov_report_goleveldb.json
+/cov/
+
+*.rpm
+*.deb
+
+#testing output files
+*.out

@@ -1,0 +1,785 @@
+{
+  "files": [
+    {
+      "name": "signrpc/signer.proto",
+      "description": "",
+      "package": "signrpc",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "InputScript",
+          "longName": "InputScript",
+          "fullName": "signrpc.InputScript",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "witness",
+              "description": "The serializes witness stack for the specified input.",
+              "label": "repeated",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sig_script",
+              "description": "The optional sig script for the specified witness that will only be set if\nthe input specified is a nested p2sh witness program.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InputScriptResp",
+          "longName": "InputScriptResp",
+          "fullName": "signrpc.InputScriptResp",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "input_scripts",
+              "description": "The set of fully valid input scripts requested.",
+              "label": "repeated",
+              "type": "InputScript",
+              "longType": "InputScript",
+              "fullType": "signrpc.InputScript",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyDescriptor",
+          "longName": "KeyDescriptor",
+          "fullName": "signrpc.KeyDescriptor",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "raw_key_bytes",
+              "description": "The raw bytes of the key being identified. Either this or the KeyLocator\nmust be specified.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_loc",
+              "description": "The key locator that identifies which key to use for signing. Either this\nor the raw bytes of the target key must be specified.",
+              "label": "",
+              "type": "KeyLocator",
+              "longType": "KeyLocator",
+              "fullType": "signrpc.KeyLocator",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyLocator",
+          "longName": "KeyLocator",
+          "fullName": "signrpc.KeyLocator",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key_family",
+              "description": "The family of key being identified.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_index",
+              "description": "The precise index of the key being identified.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SharedKeyRequest",
+          "longName": "SharedKeyRequest",
+          "fullName": "signrpc.SharedKeyRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "ephemeral_pubkey",
+              "description": "The ephemeral public key to use for the DH key derivation.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_loc",
+              "description": "Deprecated. The optional key locator of the local key that should be used.\nIf this parameter is not set then the node's identity private key will be\nused.",
+              "label": "",
+              "type": "KeyLocator",
+              "longType": "KeyLocator",
+              "fullType": "signrpc.KeyLocator",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "key_desc",
+              "description": "A key descriptor describes the key used for performing ECDH. Either a key\nlocator or a raw public key is expected, if neither is supplied, defaults to\nthe node's identity private key.",
+              "label": "",
+              "type": "KeyDescriptor",
+              "longType": "KeyDescriptor",
+              "fullType": "signrpc.KeyDescriptor",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SharedKeyResponse",
+          "longName": "SharedKeyResponse",
+          "fullName": "signrpc.SharedKeyResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "shared_key",
+              "description": "The shared public key, hashed with sha256.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SignDescriptor",
+          "longName": "SignDescriptor",
+          "fullName": "signrpc.SignDescriptor",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key_desc",
+              "description": "A descriptor that precisely describes *which* key to use for signing. This\nmay provide the raw public key directly, or require the Signer to re-derive\nthe key according to the populated derivation path.\n\nNote that if the key descriptor was obtained through walletrpc.DeriveKey,\nthen the key locator MUST always be provided, since the derived keys are not\npersisted unlike with DeriveNextKey.",
+              "label": "",
+              "type": "KeyDescriptor",
+              "longType": "KeyDescriptor",
+              "fullType": "signrpc.KeyDescriptor",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "single_tweak",
+              "description": "A scalar value that will be added to the private key corresponding to the\nabove public key to obtain the private key to be used to sign this input.\nThis value is typically derived via the following computation:\n\nderivedKey = privkey + sha256(perCommitmentPoint || pubKey) mod N",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "double_tweak",
+              "description": "A private key that will be used in combination with its corresponding\nprivate key to derive the private key that is to be used to sign the target\ninput. Within the Lightning protocol, this value is typically the\ncommitment secret from a previously revoked commitment transaction. This\nvalue is in combination with two hash values, and the original private key\nto derive the private key to be used when signing.\n\nk = (privKey*sha256(pubKey || tweakPub) +\ntweakPriv*sha256(tweakPub || pubKey)) mod N",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "witness_script",
+              "description": "The full script required to properly redeem the output.  This field will\nonly be populated if a p2wsh or a p2sh output is being signed.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "output",
+              "description": "A description of the output being spent. The value and script MUST be\nprovided.",
+              "label": "",
+              "type": "TxOut",
+              "longType": "TxOut",
+              "fullType": "signrpc.TxOut",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sighash",
+              "description": "The target sighash type that should be used when generating the final\nsighash, and signature.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "input_index",
+              "description": "The target input within the transaction that should be signed.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SignMessageReq",
+          "longName": "SignMessageReq",
+          "fullName": "signrpc.SignMessageReq",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "msg",
+              "description": "The message to be signed.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_loc",
+              "description": "The key locator that identifies which key to use for signing.",
+              "label": "",
+              "type": "KeyLocator",
+              "longType": "KeyLocator",
+              "fullType": "signrpc.KeyLocator",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SignMessageResp",
+          "longName": "SignMessageResp",
+          "fullName": "signrpc.SignMessageResp",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "signature",
+              "description": "The signature for the given message in the fixed-size LN wire format.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SignReq",
+          "longName": "SignReq",
+          "fullName": "signrpc.SignReq",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "raw_tx_bytes",
+              "description": "The raw bytes of the transaction to be signed.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sign_descs",
+              "description": "A set of sign descriptors, for each input to be signed.",
+              "label": "repeated",
+              "type": "SignDescriptor",
+              "longType": "SignDescriptor",
+              "fullType": "signrpc.SignDescriptor",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SignResp",
+          "longName": "SignResp",
+          "fullName": "signrpc.SignResp",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "raw_sigs",
+              "description": "A set of signatures realized in a fixed 64-byte format ordered in ascending\ninput order.",
+              "label": "repeated",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TxOut",
+          "longName": "TxOut",
+          "fullName": "signrpc.TxOut",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "value",
+              "description": "The value of the output being spent.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pk_script",
+              "description": "The script of the output being spent.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "VerifyMessageReq",
+          "longName": "VerifyMessageReq",
+          "fullName": "signrpc.VerifyMessageReq",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "msg",
+              "description": "The message over which the signature is to be verified.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "signature",
+              "description": "The fixed-size LN wire encoded signature to be verified over the given\nmessage.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "pubkey",
+              "description": "The public key the signature has to be valid for.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "VerifyMessageResp",
+          "longName": "VerifyMessageResp",
+          "fullName": "signrpc.VerifyMessageResp",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "valid",
+              "description": "Whether the signature was valid over the given message.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "Signer",
+          "longName": "Signer",
+          "fullName": "signrpc.Signer",
+          "description": "Signer is a service that gives access to the signing functionality of the\ndaemon's wallet.",
+          "methods": [
+            {
+              "name": "SignOutputRaw",
+              "description": "SignOutputRaw is a method that can be used to generated a signature for a\nset of inputs/outputs to a transaction. Each request specifies details\nconcerning how the outputs should be signed, which keys they should be\nsigned with, and also any optional tweaks. The return value is a fixed\n64-byte signature (the same format as we use on the wire in Lightning).\n\nIf we are  unable to sign using the specified keys, then an error will be\nreturned.",
+              "requestType": "SignReq",
+              "requestLongType": "SignReq",
+              "requestFullType": "signrpc.SignReq",
+              "requestStreaming": false,
+              "responseType": "SignResp",
+              "responseLongType": "SignResp",
+              "responseFullType": "signrpc.SignResp",
+              "responseStreaming": false
+            },
+            {
+              "name": "ComputeInputScript",
+              "description": "ComputeInputScript generates a complete InputIndex for the passed\ntransaction with the signature as defined within the passed SignDescriptor.\nThis method should be capable of generating the proper input script for\nboth regular p2wkh output and p2wkh outputs nested within a regular p2sh\noutput.\n\nNote that when using this method to sign inputs belonging to the wallet,\nthe only items of the SignDescriptor that need to be populated are pkScript\nin the TxOut field, the value in that same field, and finally the input\nindex.",
+              "requestType": "SignReq",
+              "requestLongType": "SignReq",
+              "requestFullType": "signrpc.SignReq",
+              "requestStreaming": false,
+              "responseType": "InputScriptResp",
+              "responseLongType": "InputScriptResp",
+              "responseFullType": "signrpc.InputScriptResp",
+              "responseStreaming": false
+            },
+            {
+              "name": "SignMessage",
+              "description": "SignMessage signs a message with the key specified in the key locator. The\nreturned signature is fixed-size LN wire format encoded.\n\nThe main difference to SignMessage in the main RPC is that a specific key is\nused to sign the message instead of the node identity private key.",
+              "requestType": "SignMessageReq",
+              "requestLongType": "SignMessageReq",
+              "requestFullType": "signrpc.SignMessageReq",
+              "requestStreaming": false,
+              "responseType": "SignMessageResp",
+              "responseLongType": "SignMessageResp",
+              "responseFullType": "signrpc.SignMessageResp",
+              "responseStreaming": false
+            },
+            {
+              "name": "VerifyMessage",
+              "description": "VerifyMessage verifies a signature over a message using the public key\nprovided. The signature must be fixed-size LN wire format encoded.\n\nThe main difference to VerifyMessage in the main RPC is that the public key\nused to sign the message does not have to be a node known to the network.",
+              "requestType": "VerifyMessageReq",
+              "requestLongType": "VerifyMessageReq",
+              "requestFullType": "signrpc.VerifyMessageReq",
+              "requestStreaming": false,
+              "responseType": "VerifyMessageResp",
+              "responseLongType": "VerifyMessageResp",
+              "responseFullType": "signrpc.VerifyMessageResp",
+              "responseStreaming": false
+            },
+            {
+              "name": "DeriveSharedKey",
+              "description": "DeriveSharedKey returns a shared secret key by performing Diffie-Hellman key\nderivation between the ephemeral public key in the request and the node's\nkey specified in the key_desc parameter. Either a key locator or a raw\npublic key is expected in the key_desc, if neither is supplied, defaults to\nthe node's identity private key:\nP_shared = privKeyNode * ephemeralPubkey\nThe resulting shared public key is serialized in the compressed format and\nhashed with sha256, resulting in the final key length of 256bit.",
+              "requestType": "SharedKeyRequest",
+              "requestLongType": "SharedKeyRequest",
+              "requestFullType": "signrpc.SharedKeyRequest",
+              "requestStreaming": false,
+              "responseType": "SharedKeyResponse",
+              "responseLongType": "SharedKeyResponse",
+              "responseFullType": "signrpc.SharedKeyResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

@@ -1,0 +1,625 @@
+{
+  "files": [
+    {
+      "name": "chainrpc/chainnotifier.proto",
+      "description": "",
+      "package": "chainrpc",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "BlockEpoch",
+          "longName": "BlockEpoch",
+          "fullName": "chainrpc.BlockEpoch",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "hash",
+              "description": "The hash of the block.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "height",
+              "description": "The height of the block.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ConfDetails",
+          "longName": "ConfDetails",
+          "fullName": "chainrpc.ConfDetails",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "raw_tx",
+              "description": "The raw bytes of the confirmed transaction.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "block_hash",
+              "description": "The hash of the block in which the confirmed transaction was included in.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "block_height",
+              "description": "The height of the block in which the confirmed transaction was included\nin.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "tx_index",
+              "description": "The index of the confirmed transaction within the transaction.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ConfEvent",
+          "longName": "ConfEvent",
+          "fullName": "chainrpc.ConfEvent",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "conf",
+              "description": "An event that includes the confirmation details of the request\n(txid/ouput script).",
+              "label": "",
+              "type": "ConfDetails",
+              "longType": "ConfDetails",
+              "fullType": "chainrpc.ConfDetails",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
+              "name": "reorg",
+              "description": "An event send when the transaction of the request is reorged out of the\nchain.",
+              "label": "",
+              "type": "Reorg",
+              "longType": "Reorg",
+              "fullType": "chainrpc.Reorg",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ConfRequest",
+          "longName": "ConfRequest",
+          "fullName": "chainrpc.ConfRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "txid",
+              "description": "The transaction hash for which we should request a confirmation notification\nfor. If set to a hash of all zeros, then the confirmation notification will\nbe requested for the script instead.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "script",
+              "description": "An output script within a transaction with the hash above which will be used\nby light clients to match block filters. If the transaction hash is set to a\nhash of all zeros, then a confirmation notification will be requested for\nthis script instead.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "num_confs",
+              "description": "The number of desired confirmations the transaction/output script should\nreach before dispatching a confirmation notification.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "height_hint",
+              "description": "The earliest height in the chain for which the transaction/output script\ncould have been included in a block. This should in most cases be set to the\nbroadcast height of the transaction/output script.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Outpoint",
+          "longName": "Outpoint",
+          "fullName": "chainrpc.Outpoint",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "hash",
+              "description": "The hash of the transaction.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "index",
+              "description": "The index of the output within the transaction.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Reorg",
+          "longName": "Reorg",
+          "fullName": "chainrpc.Reorg",
+          "description": "TODO(wilmer): need to know how the client will use this first.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "SpendDetails",
+          "longName": "SpendDetails",
+          "fullName": "chainrpc.SpendDetails",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "spending_outpoint",
+              "description": "The outpoint was that spent.",
+              "label": "",
+              "type": "Outpoint",
+              "longType": "Outpoint",
+              "fullType": "chainrpc.Outpoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "raw_spending_tx",
+              "description": "The raw bytes of the spending transaction.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spending_tx_hash",
+              "description": "The hash of the spending transaction.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spending_input_index",
+              "description": "The input of the spending transaction that fulfilled the spend request.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spending_height",
+              "description": "The height at which the spending transaction was included in a block.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SpendEvent",
+          "longName": "SpendEvent",
+          "fullName": "chainrpc.SpendEvent",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "spend",
+              "description": "An event that includes the details of the spending transaction of the\nrequest (outpoint/output script).",
+              "label": "",
+              "type": "SpendDetails",
+              "longType": "SpendDetails",
+              "fullType": "chainrpc.SpendDetails",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
+              "name": "reorg",
+              "description": "An event sent when the spending transaction of the request was\nreorged out of the chain.",
+              "label": "",
+              "type": "Reorg",
+              "longType": "Reorg",
+              "fullType": "chainrpc.Reorg",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SpendRequest",
+          "longName": "SpendRequest",
+          "fullName": "chainrpc.SpendRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "outpoint",
+              "description": "The outpoint for which we should request a spend notification for. If set to\na zero outpoint, then the spend notification will be requested for the\nscript instead.",
+              "label": "",
+              "type": "Outpoint",
+              "longType": "Outpoint",
+              "fullType": "chainrpc.Outpoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "script",
+              "description": "The output script for the outpoint above. This will be used by light clients\nto match block filters. If the outpoint is set to a zero outpoint, then a\nspend notification will be requested for this script instead.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "height_hint",
+              "description": "The earliest height in the chain for which the outpoint/output script could\nhave been spent. This should in most cases be set to the broadcast height of\nthe outpoint/output script.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "ChainNotifier",
+          "longName": "ChainNotifier",
+          "fullName": "chainrpc.ChainNotifier",
+          "description": "ChainNotifier is a service that can be used to get information about the\nchain backend by registering notifiers for chain events.",
+          "methods": [
+            {
+              "name": "RegisterConfirmationsNtfn",
+              "description": "RegisterConfirmationsNtfn is a synchronous response-streaming RPC that\nregisters an intent for a client to be notified once a confirmation request\nhas reached its required number of confirmations on-chain.\n\nA client can specify whether the confirmation request should be for a\nparticular transaction by its hash or for an output script by specifying a\nzero hash.",
+              "requestType": "ConfRequest",
+              "requestLongType": "ConfRequest",
+              "requestFullType": "chainrpc.ConfRequest",
+              "requestStreaming": false,
+              "responseType": "ConfEvent",
+              "responseLongType": "ConfEvent",
+              "responseFullType": "chainrpc.ConfEvent",
+              "responseStreaming": true
+            },
+            {
+              "name": "RegisterSpendNtfn",
+              "description": "RegisterSpendNtfn is a synchronous response-streaming RPC that registers an\nintent for a client to be notification once a spend request has been spent\nby a transaction that has confirmed on-chain.\n\nA client can specify whether the spend request should be for a particular\noutpoint  or for an output script by specifying a zero outpoint.",
+              "requestType": "SpendRequest",
+              "requestLongType": "SpendRequest",
+              "requestFullType": "chainrpc.SpendRequest",
+              "requestStreaming": false,
+              "responseType": "SpendEvent",
+              "responseLongType": "SpendEvent",
+              "responseFullType": "chainrpc.SpendEvent",
+              "responseStreaming": true
+            },
+            {
+              "name": "RegisterBlockEpochNtfn",
+              "description": "RegisterBlockEpochNtfn is a synchronous response-streaming RPC that\nregisters an intent for a client to be notified of blocks in the chain. The\nstream will return a hash and height tuple of a block for each new/stale\nblock in the chain. It is the client's responsibility to determine whether\nthe tuple returned is for a new or stale block in the chain.\n\nA client can also request a historical backlog of blocks from a particular\npoint. This allows clients to be idempotent by ensuring that they do not\nmissing processing a single block within the chain.",
+              "requestType": "BlockEpoch",
+              "requestLongType": "BlockEpoch",
+              "requestFullType": "chainrpc.BlockEpoch",
+              "requestStreaming": false,
+              "responseType": "BlockEpoch",
+              "responseLongType": "BlockEpoch",
+              "responseFullType": "chainrpc.BlockEpoch",
+              "responseStreaming": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

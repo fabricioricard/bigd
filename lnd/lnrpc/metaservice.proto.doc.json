@@ -1,0 +1,478 @@
+{
+  "files": [
+    {
+      "name": "metaservice.proto",
+      "description": "",
+      "package": "lnrpc",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "ChangePasswordRequest",
+          "longName": "ChangePasswordRequest",
+          "fullName": "lnrpc.ChangePasswordRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "current_passphrase",
+              "description": "current_password should be the current valid passphrase used to unlock the daemon.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "current_password_bin",
+              "description": "Binary form of current_passphrase, if specified will override current_passphrase.\nWhen using JSON, this field must be encoded as base64.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "new_passphrase",
+              "description": "new_passphrase should be the new passphrase that will be needed to unlock the\ndaemon.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "new_passphrase_bin",
+              "description": "Binary form of new_passphrase, if specified will override new_passphrase.\nWhen using JSON, this field must be encoded as base64.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "wallet_name",
+              "description": "wallet_name is optional, if specified will override default wallet.db",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ChangePasswordResponse",
+          "longName": "ChangePasswordResponse",
+          "fullName": "lnrpc.ChangePasswordResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "CheckPasswordRequest",
+          "longName": "CheckPasswordRequest",
+          "fullName": "lnrpc.CheckPasswordRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "wallet_passphrase",
+              "description": "current_password should be the current valid passphrase used to unlock the daemon.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "wallet_password_bin",
+              "description": "Binary form of current_passphrase, if specified will override current_passphrase.\nWhen using JSON, this field must be encoded as base64.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "wallet_name",
+              "description": "wallet_name is optional, if specified will override default wallet.db",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CheckPasswordResponse",
+          "longName": "CheckPasswordResponse",
+          "fullName": "lnrpc.CheckPasswordResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "valid_passphrase",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CrashRequest",
+          "longName": "CrashRequest",
+          "fullName": "lnrpc.CrashRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "CrashResponse",
+          "longName": "CrashResponse",
+          "fullName": "lnrpc.CrashResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetInfo2Request",
+          "longName": "GetInfo2Request",
+          "fullName": "lnrpc.GetInfo2Request",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "GetInfo2Response",
+          "longName": "GetInfo2Response",
+          "fullName": "lnrpc.GetInfo2Response",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "neutrino",
+              "description": "",
+              "label": "",
+              "type": "NeutrinoInfo",
+              "longType": "NeutrinoInfo",
+              "fullType": "lnrpc.NeutrinoInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "wallet",
+              "description": "",
+              "label": "",
+              "type": "WalletInfo",
+              "longType": "WalletInfo",
+              "fullType": "lnrpc.WalletInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lightning",
+              "description": "",
+              "label": "",
+              "type": "GetInfoResponse",
+              "longType": "GetInfoResponse",
+              "fullType": "lnrpc.GetInfoResponse",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "MetaService",
+          "longName": "MetaService",
+          "fullName": "lnrpc.MetaService",
+          "description": "",
+          "methods": [
+            {
+              "name": "GetInfo2",
+              "description": "$pld.category: `Meta`\n$pld.short_description: `Returns basic information related to the active daemon`\n\nGetInfo returns general information concerning the lightning node including\nit's identity pubkey, alias, the chains it is connected to, and information\nconcerning the number of open+pending channels.",
+              "requestType": "GetInfo2Request",
+              "requestLongType": "GetInfo2Request",
+              "requestFullType": "lnrpc.GetInfo2Request",
+              "requestStreaming": false,
+              "responseType": "GetInfo2Response",
+              "responseLongType": "GetInfo2Response",
+              "responseFullType": "lnrpc.GetInfo2Response",
+              "responseStreaming": false
+            },
+            {
+              "name": "ChangePassword",
+              "description": "$pld.category: `Wallet`\n$pld.short_description: `Change an encrypted wallet's password at startup`\n\nChangePassword changes the password of the encrypted wallet. This will\nautomatically unlock the wallet database if successful.",
+              "requestType": "ChangePasswordRequest",
+              "requestLongType": "ChangePasswordRequest",
+              "requestFullType": "lnrpc.ChangePasswordRequest",
+              "requestStreaming": false,
+              "responseType": "ChangePasswordResponse",
+              "responseLongType": "ChangePasswordResponse",
+              "responseFullType": "lnrpc.ChangePasswordResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "CheckPassword",
+              "description": "$pld.category: `Wallet`\n$pld.short_description: `Check the wallet's password`\n\nCheckPassword verify that the password in the request is valid for the wallet.",
+              "requestType": "CheckPasswordRequest",
+              "requestLongType": "CheckPasswordRequest",
+              "requestFullType": "lnrpc.CheckPasswordRequest",
+              "requestStreaming": false,
+              "responseType": "CheckPasswordResponse",
+              "responseLongType": "CheckPasswordResponse",
+              "responseFullType": "lnrpc.CheckPasswordResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ForceCrash",
+              "description": "$pld.category: `Meta`\n$pld.short_description: `Force pld to crash (for debugging purposes)`\n\nForce a pld crash (for debugging purposes)",
+              "requestType": "CrashRequest",
+              "requestLongType": "CrashRequest",
+              "requestFullType": "lnrpc.CrashRequest",
+              "requestStreaming": false,
+              "responseType": "CrashResponse",
+              "responseLongType": "CrashResponse",
+              "responseFullType": "lnrpc.CrashResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

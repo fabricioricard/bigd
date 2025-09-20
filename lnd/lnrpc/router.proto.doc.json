@@ -1,0 +1,1990 @@
+{
+  "files": [
+    {
+      "name": "routerrpc/router.proto",
+      "description": "",
+      "package": "routerrpc",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "FailureDetail",
+          "longName": "FailureDetail",
+          "fullName": "routerrpc.FailureDetail",
+          "description": "",
+          "values": [
+            {
+              "name": "UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "NO_DETAIL",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "ONION_DECODE",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "LINK_NOT_ELIGIBLE",
+              "number": "3",
+              "description": ""
+            },
+            {
+              "name": "ON_CHAIN_TIMEOUT",
+              "number": "4",
+              "description": ""
+            },
+            {
+              "name": "HTLC_EXCEEDS_MAX",
+              "number": "5",
+              "description": ""
+            },
+            {
+              "name": "INSUFFICIENT_BALANCE",
+              "number": "6",
+              "description": ""
+            },
+            {
+              "name": "INCOMPLETE_FORWARD",
+              "number": "7",
+              "description": ""
+            },
+            {
+              "name": "HTLC_ADD_FAILED",
+              "number": "8",
+              "description": ""
+            },
+            {
+              "name": "FORWARDS_DISABLED",
+              "number": "9",
+              "description": ""
+            },
+            {
+              "name": "INVOICE_CANCELED",
+              "number": "10",
+              "description": ""
+            },
+            {
+              "name": "INVOICE_UNDERPAID",
+              "number": "11",
+              "description": ""
+            },
+            {
+              "name": "INVOICE_EXPIRY_TOO_SOON",
+              "number": "12",
+              "description": ""
+            },
+            {
+              "name": "INVOICE_NOT_OPEN",
+              "number": "13",
+              "description": ""
+            },
+            {
+              "name": "MPP_INVOICE_TIMEOUT",
+              "number": "14",
+              "description": ""
+            },
+            {
+              "name": "ADDRESS_MISMATCH",
+              "number": "15",
+              "description": ""
+            },
+            {
+              "name": "SET_TOTAL_MISMATCH",
+              "number": "16",
+              "description": ""
+            },
+            {
+              "name": "SET_TOTAL_TOO_LOW",
+              "number": "17",
+              "description": ""
+            },
+            {
+              "name": "SET_OVERPAID",
+              "number": "18",
+              "description": ""
+            },
+            {
+              "name": "UNKNOWN_INVOICE",
+              "number": "19",
+              "description": ""
+            },
+            {
+              "name": "INVALID_KEYSEND",
+              "number": "20",
+              "description": ""
+            },
+            {
+              "name": "MPP_IN_PROGRESS",
+              "number": "21",
+              "description": ""
+            },
+            {
+              "name": "CIRCULAR_ROUTE",
+              "number": "22",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "EventType",
+          "longName": "HtlcEvent.EventType",
+          "fullName": "routerrpc.HtlcEvent.EventType",
+          "description": "",
+          "values": [
+            {
+              "name": "UNKNOWN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "SEND",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "RECEIVE",
+              "number": "2",
+              "description": ""
+            },
+            {
+              "name": "FORWARD",
+              "number": "3",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "PaymentState",
+          "longName": "PaymentState",
+          "fullName": "routerrpc.PaymentState",
+          "description": "",
+          "values": [
+            {
+              "name": "IN_FLIGHT",
+              "number": "0",
+              "description": "Payment is still in flight."
+            },
+            {
+              "name": "SUCCEEDED",
+              "number": "1",
+              "description": "Payment completed successfully."
+            },
+            {
+              "name": "FAILED_TIMEOUT",
+              "number": "2",
+              "description": "There are more routes to try, but the payment timeout was exceeded."
+            },
+            {
+              "name": "FAILED_NO_ROUTE",
+              "number": "3",
+              "description": "All possible routes were tried and failed permanently. Or were no\nroutes to the destination at all."
+            },
+            {
+              "name": "FAILED_ERROR",
+              "number": "4",
+              "description": "A non-recoverable error has occured."
+            },
+            {
+              "name": "FAILED_INCORRECT_PAYMENT_DETAILS",
+              "number": "5",
+              "description": "Payment details incorrect (unknown hash, invalid amt or\ninvalid final cltv delta)"
+            },
+            {
+              "name": "FAILED_INSUFFICIENT_BALANCE",
+              "number": "6",
+              "description": "Insufficient local balance."
+            }
+          ]
+        },
+        {
+          "name": "ResolveHoldForwardAction",
+          "longName": "ResolveHoldForwardAction",
+          "fullName": "routerrpc.ResolveHoldForwardAction",
+          "description": "",
+          "values": [
+            {
+              "name": "SETTLE",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "FAIL",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "RESUME",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "BuildRouteRequest",
+          "longName": "BuildRouteRequest",
+          "fullName": "routerrpc.BuildRouteRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "amt_msat",
+              "description": "The amount to send expressed in msat. If set to zero, the minimum routable\namount is used.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "final_cltv_delta",
+              "description": "CLTV delta from the current height that should be used for the timelock\nof the final hop",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_chan_id",
+              "description": "The channel id of the channel that must be taken to the first hop. If zero,\nany channel may be used.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "hop_pubkeys",
+              "description": "A list of hops that defines the route. This does not include the source hop\npubkey.",
+              "label": "repeated",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "BuildRouteResponse",
+          "longName": "BuildRouteResponse",
+          "fullName": "routerrpc.BuildRouteResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "route",
+              "description": "Fully specified route that can be used to execute the payment.",
+              "label": "",
+              "type": "Route",
+              "longType": "lnrpc.Route",
+              "fullType": "lnrpc.Route",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CircuitKey",
+          "longName": "CircuitKey",
+          "fullName": "routerrpc.CircuitKey",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "chan_id",
+              "description": "The id of the channel that the is part of this circuit.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "htlc_id",
+              "description": "The index of the incoming htlc in the incoming channel.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ForwardEvent",
+          "longName": "ForwardEvent",
+          "fullName": "routerrpc.ForwardEvent",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "info",
+              "description": "Info contains details about the htlc that was forwarded.",
+              "label": "",
+              "type": "HtlcInfo",
+              "longType": "HtlcInfo",
+              "fullType": "routerrpc.HtlcInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ForwardFailEvent",
+          "longName": "ForwardFailEvent",
+          "fullName": "routerrpc.ForwardFailEvent",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "ForwardHtlcInterceptRequest",
+          "longName": "ForwardHtlcInterceptRequest",
+          "fullName": "routerrpc.ForwardHtlcInterceptRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "incoming_circuit_key",
+              "description": "The key of this forwarded htlc. It defines the incoming channel id and\nthe index in this channel.",
+              "label": "",
+              "type": "CircuitKey",
+              "longType": "CircuitKey",
+              "fullType": "routerrpc.CircuitKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "incoming_amount_msat",
+              "description": "The incoming htlc amount.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "incoming_expiry",
+              "description": "The incoming htlc expiry.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "payment_hash",
+              "description": "The htlc payment hash. This value is not guaranteed to be unique per\nrequest.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_requested_chan_id",
+              "description": "The requested outgoing channel id for this forwarded htlc. Because of\nnon-strict forwarding, this isn't necessarily the channel over which the\npacket will be forwarded eventually. A different channel to the same peer\nmay be selected as well.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_amount_msat",
+              "description": "The outgoing htlc amount.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_expiry",
+              "description": "The outgoing htlc expiry.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "custom_records",
+              "description": "Any custom records that were present in the payload.",
+              "label": "repeated",
+              "type": "CustomRecordsEntry",
+              "longType": "ForwardHtlcInterceptRequest.CustomRecordsEntry",
+              "fullType": "routerrpc.ForwardHtlcInterceptRequest.CustomRecordsEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "onion_blob",
+              "description": "The onion blob for the next hop",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CustomRecordsEntry",
+          "longName": "ForwardHtlcInterceptRequest.CustomRecordsEntry",
+          "fullName": "routerrpc.ForwardHtlcInterceptRequest.CustomRecordsEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ForwardHtlcInterceptResponse",
+          "longName": "ForwardHtlcInterceptResponse",
+          "fullName": "routerrpc.ForwardHtlcInterceptResponse",
+          "description": "ForwardHtlcInterceptResponse enables the caller to resolve a previously hold\nforward. The caller can choose either to:\n- `Resume`: Execute the default behavior (usually forward).\n- `Reject`: Fail the htlc backwards.\n- `Settle`: Settle this htlc with a given preimage.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "incoming_circuit_key",
+              "description": "The key of this forwarded htlc. It defines the incoming channel id and\nthe index in this channel.",
+              "label": "",
+              "type": "CircuitKey",
+              "longType": "CircuitKey",
+              "fullType": "routerrpc.CircuitKey",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "action",
+              "description": "The resolve action for this intercepted htlc.",
+              "label": "",
+              "type": "ResolveHoldForwardAction",
+              "longType": "ResolveHoldForwardAction",
+              "fullType": "routerrpc.ResolveHoldForwardAction",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "preimage",
+              "description": "The preimage in case the resolve action is Settle.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "HtlcEvent",
+          "longName": "HtlcEvent",
+          "fullName": "routerrpc.HtlcEvent",
+          "description": "HtlcEvent contains the htlc event that was processed. These are served on a\nbest-effort basis; events are not persisted, delivery is not guaranteed\n(in the event of a crash in the switch, forward events may be lost) and\nsome events may be replayed upon restart. Events consumed from this package\nshould be de-duplicated by the htlc's unique combination of incoming and\noutgoing channel id and htlc id. [EXPERIMENTAL]",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "incoming_channel_id",
+              "description": "The short channel id that the incoming htlc arrived at our node on. This\nvalue is zero for sends.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_channel_id",
+              "description": "The short channel id that the outgoing htlc left our node on. This value\nis zero for receives.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "incoming_htlc_id",
+              "description": "Incoming id is the index of the incoming htlc in the incoming channel.\nThis value is zero for sends.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_htlc_id",
+              "description": "Outgoing id is the index of the outgoing htlc in the outgoing channel.\nThis value is zero for receives.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "timestamp_ns",
+              "description": "The time in unix nanoseconds that the event occurred.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "event_type",
+              "description": "The event type indicates whether the htlc was part of a send, receive or\nforward.",
+              "label": "",
+              "type": "EventType",
+              "longType": "HtlcEvent.EventType",
+              "fullType": "routerrpc.HtlcEvent.EventType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "forward_event",
+              "description": "",
+              "label": "",
+              "type": "ForwardEvent",
+              "longType": "ForwardEvent",
+              "fullType": "routerrpc.ForwardEvent",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
+              "name": "forward_fail_event",
+              "description": "",
+              "label": "",
+              "type": "ForwardFailEvent",
+              "longType": "ForwardFailEvent",
+              "fullType": "routerrpc.ForwardFailEvent",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
+              "name": "settle_event",
+              "description": "",
+              "label": "",
+              "type": "SettleEvent",
+              "longType": "SettleEvent",
+              "fullType": "routerrpc.SettleEvent",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            },
+            {
+              "name": "link_fail_event",
+              "description": "",
+              "label": "",
+              "type": "LinkFailEvent",
+              "longType": "LinkFailEvent",
+              "fullType": "routerrpc.LinkFailEvent",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "event",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "HtlcInfo",
+          "longName": "HtlcInfo",
+          "fullName": "routerrpc.HtlcInfo",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "incoming_timelock",
+              "description": "The timelock on the incoming htlc.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_timelock",
+              "description": "The timelock on the outgoing htlc.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "incoming_amt_msat",
+              "description": "The amount of the incoming htlc.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_amt_msat",
+              "description": "The amount of the outgoing htlc.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LinkFailEvent",
+          "longName": "LinkFailEvent",
+          "fullName": "routerrpc.LinkFailEvent",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "info",
+              "description": "Info contains details about the htlc that we failed.",
+              "label": "",
+              "type": "HtlcInfo",
+              "longType": "HtlcInfo",
+              "fullType": "routerrpc.HtlcInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "wire_failure",
+              "description": "FailureCode is the BOLT error code for the failure.",
+              "label": "",
+              "type": "FailureCode",
+              "longType": "lnrpc.Failure.FailureCode",
+              "fullType": "lnrpc.Failure.FailureCode",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "failure_detail",
+              "description": "FailureDetail provides additional information about the reason for the\nfailure. This detail enriches the information provided by the wire message\nand may be 'no detail' if the wire message requires no additional metadata.",
+              "label": "",
+              "type": "FailureDetail",
+              "longType": "FailureDetail",
+              "fullType": "routerrpc.FailureDetail",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "failure_string",
+              "description": "A string representation of the link failure.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PairData",
+          "longName": "PairData",
+          "fullName": "routerrpc.PairData",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "fail_time",
+              "description": "Time of last failure.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fail_amt_sat",
+              "description": "Lowest amount that failed to forward rounded to whole sats. This may be\nset to zero if the failure is independent of amount.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fail_amt_msat",
+              "description": "Lowest amount that failed to forward in millisats. This may be\nset to zero if the failure is independent of amount.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "success_time",
+              "description": "Time of last success.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "success_amt_sat",
+              "description": "Highest amount that we could successfully forward rounded to whole sats.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "success_amt_msat",
+              "description": "Highest amount that we could successfully forward in millisats.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PairHistory",
+          "longName": "PairHistory",
+          "fullName": "routerrpc.PairHistory",
+          "description": "PairHistory contains the mission control state for a particular node pair.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "node_from",
+              "description": "The source node pubkey of the pair.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "node_to",
+              "description": "The destination node pubkey of the pair.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "history",
+              "description": "",
+              "label": "",
+              "type": "PairData",
+              "longType": "PairData",
+              "fullType": "routerrpc.PairData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PaymentStatus",
+          "longName": "PaymentStatus",
+          "fullName": "routerrpc.PaymentStatus",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "state",
+              "description": "Current state the payment is in.",
+              "label": "",
+              "type": "PaymentState",
+              "longType": "PaymentState",
+              "fullType": "routerrpc.PaymentState",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "preimage",
+              "description": "The pre-image of the payment when state is SUCCEEDED.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "htlcs",
+              "description": "The HTLCs made in attempt to settle the payment [EXPERIMENTAL].",
+              "label": "repeated",
+              "type": "HTLCAttempt",
+              "longType": "lnrpc.HTLCAttempt",
+              "fullType": "lnrpc.HTLCAttempt",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "QueryMissionControlRequest",
+          "longName": "QueryMissionControlRequest",
+          "fullName": "routerrpc.QueryMissionControlRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "QueryMissionControlResponse",
+          "longName": "QueryMissionControlResponse",
+          "fullName": "routerrpc.QueryMissionControlResponse",
+          "description": "QueryMissionControlResponse contains mission control state.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pairs",
+              "description": "Node pair-level mission control state.",
+              "label": "repeated",
+              "type": "PairHistory",
+              "longType": "PairHistory",
+              "fullType": "routerrpc.PairHistory",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "QueryProbabilityRequest",
+          "longName": "QueryProbabilityRequest",
+          "fullName": "routerrpc.QueryProbabilityRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "from_node",
+              "description": "The source node pubkey of the pair.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "to_node",
+              "description": "The destination node pubkey of the pair.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "amt_msat",
+              "description": "The amount for which to calculate a probability.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "QueryProbabilityResponse",
+          "longName": "QueryProbabilityResponse",
+          "fullName": "routerrpc.QueryProbabilityResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "probability",
+              "description": "The success probability for the requested pair.",
+              "label": "",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "history",
+              "description": "The historical data for the requested pair.",
+              "label": "",
+              "type": "PairData",
+              "longType": "PairData",
+              "fullType": "routerrpc.PairData",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ResetMissionControlRequest",
+          "longName": "ResetMissionControlRequest",
+          "fullName": "routerrpc.ResetMissionControlRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "ResetMissionControlResponse",
+          "longName": "ResetMissionControlResponse",
+          "fullName": "routerrpc.ResetMissionControlResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "RouteFeeRequest",
+          "longName": "RouteFeeRequest",
+          "fullName": "routerrpc.RouteFeeRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "dest",
+              "description": "The destination once wishes to obtain a routing fee quote to.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "amt_sat",
+              "description": "The amount one wishes to send to the target destination.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RouteFeeResponse",
+          "longName": "RouteFeeResponse",
+          "fullName": "routerrpc.RouteFeeResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "routing_fee_msat",
+              "description": "A lower bound of the estimated fee to the target destination within the\nnetwork, expressed in milli-satoshis.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "time_lock_delay",
+              "description": "An estimate of the worst case time delay that can occur. Note that callers\nwill still need to factor in the final CLTV delta of the last hop into this\nvalue.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SendPaymentRequest",
+          "longName": "SendPaymentRequest",
+          "fullName": "routerrpc.SendPaymentRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "dest",
+              "description": "The identity pubkey of the payment recipient",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "amt",
+              "description": "Number of satoshis to send.\n\nThe fields amt and amt_msat are mutually exclusive.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "amt_msat",
+              "description": "Number of millisatoshis to send.\n\nThe fields amt and amt_msat are mutually exclusive.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "payment_hash",
+              "description": "The hash to use within the payment's HTLC",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "final_cltv_delta",
+              "description": "The CLTV delta from the current height that should be used to set the\ntimelock for the final hop.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "payment_request",
+              "description": "A bare-bones invoice for a payment within the Lightning Network.  With the\ndetails of the invoice, the sender has all the data necessary to send a\npayment to the recipient. The amount in the payment request may be zero. In\nthat case it is required to set the amt field as well. If no payment request\nis specified, the following fields are required: dest, amt and payment_hash.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "timeout_seconds",
+              "description": "An upper limit on the amount of time we should spend when attempting to\nfulfill the payment. This is expressed in seconds. If we cannot make a\nsuccessful payment within this time frame, an error will be returned.\nThis field must be non-zero.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fee_limit_sat",
+              "description": "The maximum number of satoshis that will be paid as a fee of the payment.\nIf this field is left to the default value of 0, only zero-fee routes will\nbe considered. This usually means single hop routes connecting directly to\nthe destination. To send the payment without a fee limit, use max int here.\n\nThe fields fee_limit_sat and fee_limit_msat are mutually exclusive.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fee_limit_msat",
+              "description": "The maximum number of millisatoshis that will be paid as a fee of the\npayment. If this field is left to the default value of 0, only zero-fee\nroutes will be considered. This usually means single hop routes connecting\ndirectly to the destination. To send the payment without a fee limit, use\nmax int here.\n\nThe fields fee_limit_sat and fee_limit_msat are mutually exclusive.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outgoing_chan_id",
+              "description": "Deprecated, use outgoing_chan_ids. The channel id of the channel that must\nbe taken to the first hop. If zero, any channel may be used (unless\noutgoing_chan_ids are set).",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "outgoing_chan_ids",
+              "description": "The channel ids of the channels are allowed for the first hop. If empty,\nany channel may be used.",
+              "label": "repeated",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "last_hop_pubkey",
+              "description": "The pubkey of the last hop of the route. If empty, any hop may be used.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "cltv_limit",
+              "description": "An optional maximum total time lock for the route. This should not exceed\nlnd's `--max-cltv-expiry` setting. If zero, then the value of\n`--max-cltv-expiry` is enforced.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "route_hints",
+              "description": "Optional route hints to reach the destination through private channels.",
+              "label": "repeated",
+              "type": "RouteHint",
+              "longType": "lnrpc.RouteHint",
+              "fullType": "lnrpc.RouteHint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "dest_custom_records",
+              "description": "An optional field that can be used to pass an arbitrary set of TLV records\nto a peer which understands the new records. This can be used to pass\napplication specific data during the payment attempt. Record types are\nrequired to be in the custom range \u003e= 65536. When using REST, the values\nmust be encoded as base64.",
+              "label": "repeated",
+              "type": "DestCustomRecordsEntry",
+              "longType": "SendPaymentRequest.DestCustomRecordsEntry",
+              "fullType": "routerrpc.SendPaymentRequest.DestCustomRecordsEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "allow_self_payment",
+              "description": "If set, circular payments to self are permitted.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "dest_features",
+              "description": "Features assumed to be supported by the final node. All transitive feature\ndependencies must also be set properly. For a given feature bit pair, either\noptional or remote may be set, but not both. If this field is nil or empty,\nthe router will try to load destination features from the graph as a\nfallback.",
+              "label": "repeated",
+              "type": "FeatureBit",
+              "longType": "lnrpc.FeatureBit",
+              "fullType": "lnrpc.FeatureBit",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "max_parts",
+              "description": "The maximum number of partial payments that may be use to complete the full\namount.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "no_inflight_updates",
+              "description": "If set, only the final payment update is streamed back. Intermediate updates\nthat show which htlcs are still in flight are suppressed.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DestCustomRecordsEntry",
+          "longName": "SendPaymentRequest.DestCustomRecordsEntry",
+          "fullName": "routerrpc.SendPaymentRequest.DestCustomRecordsEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SendToRouteRequest",
+          "longName": "SendToRouteRequest",
+          "fullName": "routerrpc.SendToRouteRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "payment_hash",
+              "description": "The payment hash to use for the HTLC.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "route",
+              "description": "Route that should be used to attempt to complete the payment.",
+              "label": "",
+              "type": "Route",
+              "longType": "lnrpc.Route",
+              "fullType": "lnrpc.Route",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SendToRouteResponse",
+          "longName": "SendToRouteResponse",
+          "fullName": "routerrpc.SendToRouteResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "preimage",
+              "description": "The preimage obtained by making the payment.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "failure",
+              "description": "The failure message in case the payment failed.",
+              "label": "",
+              "type": "Failure",
+              "longType": "lnrpc.Failure",
+              "fullType": "lnrpc.Failure",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SettleEvent",
+          "longName": "SettleEvent",
+          "fullName": "routerrpc.SettleEvent",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "SubscribeHtlcEventsRequest",
+          "longName": "SubscribeHtlcEventsRequest",
+          "fullName": "routerrpc.SubscribeHtlcEventsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "TrackPaymentRequest",
+          "longName": "TrackPaymentRequest",
+          "fullName": "routerrpc.TrackPaymentRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "payment_hash",
+              "description": "The hash of the payment to look up.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "no_inflight_updates",
+              "description": "If set, only the final payment update is streamed back. Intermediate updates\nthat show which htlcs are still in flight are suppressed.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "Router",
+          "longName": "Router",
+          "fullName": "routerrpc.Router",
+          "description": "Router is a service that offers advanced interaction with the router\nsubsystem of the daemon.",
+          "methods": [
+            {
+              "name": "SendPaymentV2",
+              "description": "$pld.category: `Payment`\n$pld.short_description: `Send a payment over lightning`\n\nSendPaymentV2 attempts to route a payment described by the passed\nPaymentRequest to the final destination. The call returns a stream of\npayment updates.",
+              "requestType": "SendPaymentRequest",
+              "requestLongType": "SendPaymentRequest",
+              "requestFullType": "routerrpc.SendPaymentRequest",
+              "requestStreaming": false,
+              "responseType": "Payment",
+              "responseLongType": ".lnrpc.Payment",
+              "responseFullType": "lnrpc.Payment",
+              "responseStreaming": true
+            },
+            {
+              "name": "TrackPaymentV2",
+              "description": "$pld.category: `Payment`\n$pld.short_description: `Track payment`\n\nTrackPaymentV2 returns an update stream for the payment identified by the\npayment hash.",
+              "requestType": "TrackPaymentRequest",
+              "requestLongType": "TrackPaymentRequest",
+              "requestFullType": "routerrpc.TrackPaymentRequest",
+              "requestStreaming": false,
+              "responseType": "Payment",
+              "responseLongType": ".lnrpc.Payment",
+              "responseFullType": "lnrpc.Payment",
+              "responseStreaming": true
+            },
+            {
+              "name": "EstimateRouteFee",
+              "description": "EstimateRouteFee allows callers to obtain a lower bound w.r.t how much it\nmay cost to send an HTLC to the target end destination.",
+              "requestType": "RouteFeeRequest",
+              "requestLongType": "RouteFeeRequest",
+              "requestFullType": "routerrpc.RouteFeeRequest",
+              "requestStreaming": false,
+              "responseType": "RouteFeeResponse",
+              "responseLongType": "RouteFeeResponse",
+              "responseFullType": "routerrpc.RouteFeeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "SendToRoute",
+              "description": "Deprecated, use SendToRouteV2. SendToRoute attempts to make a payment via\nthe specified route. This method differs from SendPayment in that it\nallows users to specify a full route manually. This can be used for\nthings like rebalancing, and atomic swaps. It differs from the newer\nSendToRouteV2 in that it doesn't return the full HTLC information.",
+              "requestType": "SendToRouteRequest",
+              "requestLongType": "SendToRouteRequest",
+              "requestFullType": "routerrpc.SendToRouteRequest",
+              "requestStreaming": false,
+              "responseType": "SendToRouteResponse",
+              "responseLongType": "SendToRouteResponse",
+              "responseFullType": "routerrpc.SendToRouteResponse",
+              "responseStreaming": false,
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "SendToRouteV2",
+              "description": "$pld.category: `Payment`\n$pld.short_description: `Send a payment over a predefined route`\n\nSendToRouteV2 attempts to make a payment via the specified route. This\nmethod differs from SendPayment in that it allows users to specify a full\nroute manually. This can be used for things like rebalancing, and atomic\nswaps.",
+              "requestType": "SendToRouteRequest",
+              "requestLongType": "SendToRouteRequest",
+              "requestFullType": "routerrpc.SendToRouteRequest",
+              "requestStreaming": false,
+              "responseType": "HTLCAttempt",
+              "responseLongType": ".lnrpc.HTLCAttempt",
+              "responseFullType": "lnrpc.HTLCAttempt",
+              "responseStreaming": false
+            },
+            {
+              "name": "ResetMissionControl",
+              "description": "$pld.category: `Payment`\n$pld.short_description: `Reset internal mission control state`\n\nResetMissionControl clears all mission control state and starts with a clean\nslate.",
+              "requestType": "ResetMissionControlRequest",
+              "requestLongType": "ResetMissionControlRequest",
+              "requestFullType": "routerrpc.ResetMissionControlRequest",
+              "requestStreaming": false,
+              "responseType": "ResetMissionControlResponse",
+              "responseLongType": "ResetMissionControlResponse",
+              "responseFullType": "routerrpc.ResetMissionControlResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "QueryMissionControl",
+              "description": "$pld.category: `Payment`\n$pld.short_description: `Query the internal mission control state`\n\nQueryMissionControl exposes the internal mission control state to callers.\nIt is a development feature.",
+              "requestType": "QueryMissionControlRequest",
+              "requestLongType": "QueryMissionControlRequest",
+              "requestFullType": "routerrpc.QueryMissionControlRequest",
+              "requestStreaming": false,
+              "responseType": "QueryMissionControlResponse",
+              "responseLongType": "QueryMissionControlResponse",
+              "responseFullType": "routerrpc.QueryMissionControlResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "QueryProbability",
+              "description": "$pld.category: `Payment`\n$pld.short_description: `Estimate a success probability`\n\nQueryProbability returns the current success probability estimate for a\ngiven node pair and amount.",
+              "requestType": "QueryProbabilityRequest",
+              "requestLongType": "QueryProbabilityRequest",
+              "requestFullType": "routerrpc.QueryProbabilityRequest",
+              "requestStreaming": false,
+              "responseType": "QueryProbabilityResponse",
+              "responseLongType": "QueryProbabilityResponse",
+              "responseFullType": "routerrpc.QueryProbabilityResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "BuildRoute",
+              "description": "$pld.category: `Payment`\n$pld.short_description: `Build a route from a list of hop pubkeys`\n\nBuildRoute builds a fully specified route based on a list of hop public\nkeys. It retrieves the relevant channel policies from the graph in order to\ncalculate the correct fees and time locks.",
+              "requestType": "BuildRouteRequest",
+              "requestLongType": "BuildRouteRequest",
+              "requestFullType": "routerrpc.BuildRouteRequest",
+              "requestStreaming": false,
+              "responseType": "BuildRouteResponse",
+              "responseLongType": "BuildRouteResponse",
+              "responseFullType": "routerrpc.BuildRouteResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "SubscribeHtlcEvents",
+              "description": "SubscribeHtlcEvents creates a uni-directional stream from the server to\nthe client which delivers a stream of htlc events.",
+              "requestType": "SubscribeHtlcEventsRequest",
+              "requestLongType": "SubscribeHtlcEventsRequest",
+              "requestFullType": "routerrpc.SubscribeHtlcEventsRequest",
+              "requestStreaming": false,
+              "responseType": "HtlcEvent",
+              "responseLongType": "HtlcEvent",
+              "responseFullType": "routerrpc.HtlcEvent",
+              "responseStreaming": true
+            },
+            {
+              "name": "SendPayment",
+              "description": "Deprecated, use SendPaymentV2. SendPayment attempts to route a payment\ndescribed by the passed PaymentRequest to the final destination. The call\nreturns a stream of payment status updates.",
+              "requestType": "SendPaymentRequest",
+              "requestLongType": "SendPaymentRequest",
+              "requestFullType": "routerrpc.SendPaymentRequest",
+              "requestStreaming": false,
+              "responseType": "PaymentStatus",
+              "responseLongType": "PaymentStatus",
+              "responseFullType": "routerrpc.PaymentStatus",
+              "responseStreaming": true,
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "TrackPayment",
+              "description": "Deprecated, use TrackPaymentV2. TrackPayment returns an update stream for\nthe payment identified by the payment hash.",
+              "requestType": "TrackPaymentRequest",
+              "requestLongType": "TrackPaymentRequest",
+              "requestFullType": "routerrpc.TrackPaymentRequest",
+              "requestStreaming": false,
+              "responseType": "PaymentStatus",
+              "responseLongType": "PaymentStatus",
+              "responseFullType": "routerrpc.PaymentStatus",
+              "responseStreaming": true,
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "HtlcInterceptor",
+              "description": "HtlcInterceptor dispatches a bi-directional streaming RPC in which\nForwarded HTLC requests are sent to the client and the client responds with\na boolean that tells LND if this htlc should be intercepted.\nIn case of interception, the htlc can be either settled, cancelled or\nresumed later by using the ResolveHoldForward endpoint.",
+              "requestType": "ForwardHtlcInterceptResponse",
+              "requestLongType": "ForwardHtlcInterceptResponse",
+              "requestFullType": "routerrpc.ForwardHtlcInterceptResponse",
+              "requestStreaming": true,
+              "responseType": "ForwardHtlcInterceptRequest",
+              "responseLongType": "ForwardHtlcInterceptRequest",
+              "responseFullType": "routerrpc.ForwardHtlcInterceptRequest",
+              "responseStreaming": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

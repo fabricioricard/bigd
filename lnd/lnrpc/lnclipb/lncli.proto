@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "verrpc/verrpc.proto";
+
+package lnclipb;
+
+option go_package = "github.com/pkt-cash/pktd/lnd/lnrpc/lnclipb";
+
+message VersionResponse {
+    // The version information for pldctl.
+    verrpc.Version pldctl = 1;
+
+    // The version information for pld.
+    verrpc.Version pld = 2;
+};

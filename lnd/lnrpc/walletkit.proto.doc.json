@@ -1,0 +1,1552 @@
+{
+  "files": [
+    {
+      "name": "walletrpc/walletkit.proto",
+      "description": "",
+      "package": "walletrpc",
+      "hasEnums": true,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [
+        {
+          "name": "WitnessType",
+          "longName": "WitnessType",
+          "fullName": "walletrpc.WitnessType",
+          "description": "",
+          "values": [
+            {
+              "name": "UNKNOWN_WITNESS",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "COMMITMENT_TIME_LOCK",
+              "number": "1",
+              "description": "A witness that allows us to spend the output of a commitment transaction\nafter a relative lock-time lockout."
+            },
+            {
+              "name": "COMMITMENT_NO_DELAY",
+              "number": "2",
+              "description": "A witness that allows us to spend a settled no-delay output immediately on a\ncounterparty's commitment transaction."
+            },
+            {
+              "name": "COMMITMENT_REVOKE",
+              "number": "3",
+              "description": "A witness that allows us to sweep the settled output of a malicious\ncounterparty's who broadcasts a revoked commitment transaction."
+            },
+            {
+              "name": "HTLC_OFFERED_REVOKE",
+              "number": "4",
+              "description": "A witness that allows us to sweep an HTLC which we offered to the remote\nparty in the case that they broadcast a revoked commitment state."
+            },
+            {
+              "name": "HTLC_ACCEPTED_REVOKE",
+              "number": "5",
+              "description": "A witness that allows us to sweep an HTLC output sent to us in the case that\nthe remote party broadcasts a revoked commitment state."
+            },
+            {
+              "name": "HTLC_OFFERED_TIMEOUT_SECOND_LEVEL",
+              "number": "6",
+              "description": "A witness that allows us to sweep an HTLC output that we extended to a\nparty, but was never fulfilled.  This HTLC output isn't directly on the\ncommitment transaction, but is the result of a confirmed second-level HTLC\ntransaction. As a result, we can only spend this after a CSV delay."
+            },
+            {
+              "name": "HTLC_ACCEPTED_SUCCESS_SECOND_LEVEL",
+              "number": "7",
+              "description": "A witness that allows us to sweep an HTLC output that was offered to us, and\nfor which we have a payment preimage. This HTLC output isn't directly on our\ncommitment transaction, but is the result of confirmed second-level HTLC\ntransaction. As a result, we can only spend this after a CSV delay."
+            },
+            {
+              "name": "HTLC_OFFERED_REMOTE_TIMEOUT",
+              "number": "8",
+              "description": "A witness that allows us to sweep an HTLC that we offered to the remote\nparty which lies in the commitment transaction of the remote party. We can\nspend this output after the absolute CLTV timeout of the HTLC as passed."
+            },
+            {
+              "name": "HTLC_ACCEPTED_REMOTE_SUCCESS",
+              "number": "9",
+              "description": "A witness that allows us to sweep an HTLC that was offered to us by the\nremote party. We use this witness in the case that the remote party goes to\nchain, and we know the pre-image to the HTLC. We can sweep this without any\nadditional timeout."
+            },
+            {
+              "name": "HTLC_SECOND_LEVEL_REVOKE",
+              "number": "10",
+              "description": "A witness that allows us to sweep an HTLC from the remote party's commitment\ntransaction in the case that the broadcast a revoked commitment, but then\nalso immediately attempt to go to the second level to claim the HTLC."
+            },
+            {
+              "name": "WITNESS_KEY_HASH",
+              "number": "11",
+              "description": "A witness type that allows us to spend a regular p2wkh output that's sent to\nan output which is under complete control of the backing wallet."
+            },
+            {
+              "name": "NESTED_WITNESS_KEY_HASH",
+              "number": "12",
+              "description": "A witness type that allows us to sweep an output that sends to a nested P2SH\nscript that pays to a key solely under our control."
+            },
+            {
+              "name": "COMMITMENT_ANCHOR",
+              "number": "13",
+              "description": "A witness type that allows us to spend our anchor on the commitment\ntransaction."
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AddrRequest",
+          "longName": "AddrRequest",
+          "fullName": "walletrpc.AddrRequest",
+          "description": "No fields, as we always give out a p2wkh address.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "AddrResponse",
+          "longName": "AddrResponse",
+          "fullName": "walletrpc.AddrResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "addr",
+              "description": "The address encoded using a bech32 format.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "BumpFeeRequest",
+          "longName": "BumpFeeRequest",
+          "fullName": "walletrpc.BumpFeeRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "outpoint",
+              "description": "The input we're attempting to bump the fee of.",
+              "label": "",
+              "type": "OutPoint",
+              "longType": "lnrpc.OutPoint",
+              "fullType": "lnrpc.OutPoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "target_conf",
+              "description": "The target number of blocks that the input should be spent within.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sat_per_byte",
+              "description": "The fee rate, expressed in sat/byte, that should be used to spend the input\nwith.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "force",
+              "description": "Whether this input must be force-swept. This means that it is swept even\nif it has a negative yield.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "BumpFeeResponse",
+          "longName": "BumpFeeResponse",
+          "fullName": "walletrpc.BumpFeeResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "EstimateFeeRequest",
+          "longName": "EstimateFeeRequest",
+          "fullName": "walletrpc.EstimateFeeRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "conf_target",
+              "description": "The number of confirmations to shoot for when estimating the fee.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EstimateFeeResponse",
+          "longName": "EstimateFeeResponse",
+          "fullName": "walletrpc.EstimateFeeResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "sat_per_kw",
+              "description": "The amount of satoshis per kw that should be used in order to reach the\nconfirmation target in the request.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FinalizePsbtRequest",
+          "longName": "FinalizePsbtRequest",
+          "fullName": "walletrpc.FinalizePsbtRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "funded_psbt",
+              "description": "A PSBT that should be signed and finalized. The PSBT must contain all\nrequired inputs, outputs, UTXO data and partial signatures of all other\nsigners.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FinalizePsbtResponse",
+          "longName": "FinalizePsbtResponse",
+          "fullName": "walletrpc.FinalizePsbtResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "signed_psbt",
+              "description": "The fully signed and finalized transaction in PSBT format.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "raw_final_tx",
+              "description": "The fully signed and finalized transaction in the raw wire format.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FundPsbtRequest",
+          "longName": "FundPsbtRequest",
+          "fullName": "walletrpc.FundPsbtRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "psbt",
+              "description": "Use an existing PSBT packet as the template for the funded PSBT.\n\nThe packet must contain at least one non-dust output. If one or more\ninputs are specified, no coin selection is performed. In that case every\ninput must be an UTXO known to the wallet that has not been locked\nbefore. The sum of all inputs must be sufficiently greater than the sum\nof all outputs to pay a miner fee with the specified fee rate. A change\noutput is added to the PSBT if necessary.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "template",
+              "defaultValue": ""
+            },
+            {
+              "name": "raw",
+              "description": "Use the outputs and optional inputs from this raw template.",
+              "label": "",
+              "type": "TxTemplate",
+              "longType": "TxTemplate",
+              "fullType": "walletrpc.TxTemplate",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "template",
+              "defaultValue": ""
+            },
+            {
+              "name": "target_conf",
+              "description": "The target number of blocks that the transaction should be confirmed in.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "fees",
+              "defaultValue": ""
+            },
+            {
+              "name": "sat_per_vbyte",
+              "description": "The fee rate, expressed in sat/vbyte, that should be used to spend the\ninput with.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "fees",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FundPsbtResponse",
+          "longName": "FundPsbtResponse",
+          "fullName": "walletrpc.FundPsbtResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "funded_psbt",
+              "description": "The funded but not yet signed PSBT packet.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "change_output_index",
+              "description": "The index of the added change output or -1 if no change was left over.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "locked_utxos",
+              "description": "The list of lock leases that were acquired for the inputs in the funded PSBT\npacket.",
+              "label": "repeated",
+              "type": "UtxoLease",
+              "longType": "UtxoLease",
+              "fullType": "walletrpc.UtxoLease",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "KeyReq",
+          "longName": "KeyReq",
+          "fullName": "walletrpc.KeyReq",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key_finger_print",
+              "description": "Is the key finger print of the root pubkey that this request is targeting.\nThis allows the WalletKit to possibly serve out keys for multiple HD chains\nvia public derivation.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key_family",
+              "description": "The target key family to derive a key from. In other contexts, this is\nknown as the \"account\".",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LabelTransactionRequest",
+          "longName": "LabelTransactionRequest",
+          "fullName": "walletrpc.LabelTransactionRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "txid",
+              "description": "The txid of the transaction to label.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "label",
+              "description": "The label to add to the transaction, limited to 500 characters.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "overwrite",
+              "description": "Whether to overwrite the existing label, if it is present.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LabelTransactionResponse",
+          "longName": "LabelTransactionResponse",
+          "fullName": "walletrpc.LabelTransactionResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "LeaseOutputRequest",
+          "longName": "LeaseOutputRequest",
+          "fullName": "walletrpc.LeaseOutputRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "An ID of 32 random bytes that must be unique for each distinct application\nusing this RPC which will be used to bound the output lease to.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outpoint",
+              "description": "The identifying outpoint of the output being leased.",
+              "label": "",
+              "type": "OutPoint",
+              "longType": "lnrpc.OutPoint",
+              "fullType": "lnrpc.OutPoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LeaseOutputResponse",
+          "longName": "LeaseOutputResponse",
+          "fullName": "walletrpc.LeaseOutputResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "expiration",
+              "description": "The absolute expiration of the output lease represented as a unix timestamp.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListSweepsRequest",
+          "longName": "ListSweepsRequest",
+          "fullName": "walletrpc.ListSweepsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "verbose",
+              "description": "Retrieve the full sweep transaction details. If false, only the sweep txids\nwill be returned. Note that some sweeps that LND publishes will have been\nreplaced-by-fee, so will not be included in this output.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListSweepsResponse",
+          "longName": "ListSweepsResponse",
+          "fullName": "walletrpc.ListSweepsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "transaction_details",
+              "description": "",
+              "label": "",
+              "type": "TransactionDetails",
+              "longType": "lnrpc.TransactionDetails",
+              "fullType": "lnrpc.TransactionDetails",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "sweeps",
+              "defaultValue": ""
+            },
+            {
+              "name": "transaction_ids",
+              "description": "",
+              "label": "",
+              "type": "TransactionIDs",
+              "longType": "ListSweepsResponse.TransactionIDs",
+              "fullType": "walletrpc.ListSweepsResponse.TransactionIDs",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "sweeps",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TransactionIDs",
+          "longName": "ListSweepsResponse.TransactionIDs",
+          "fullName": "walletrpc.ListSweepsResponse.TransactionIDs",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "transaction_ids",
+              "description": "Reversed, hex-encoded string representing the transaction ids of the\nsweeps that our node has broadcast. Note that these transactions may\nnot have confirmed yet, we record sweeps on broadcast, not confirmation.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListUnspentRequest",
+          "longName": "ListUnspentRequest",
+          "fullName": "walletrpc.ListUnspentRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "min_confs",
+              "description": "The minimum number of confirmations to be included.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "max_confs",
+              "description": "The maximum number of confirmations to be included.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListUnspentResponse",
+          "longName": "ListUnspentResponse",
+          "fullName": "walletrpc.ListUnspentResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "utxos",
+              "description": "A list of utxos satisfying the specified number of confirmations.",
+              "label": "repeated",
+              "type": "Utxo",
+              "longType": "lnrpc.Utxo",
+              "fullType": "lnrpc.Utxo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PendingSweep",
+          "longName": "PendingSweep",
+          "fullName": "walletrpc.PendingSweep",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "outpoint",
+              "description": "The outpoint of the output we're attempting to sweep.",
+              "label": "",
+              "type": "OutPoint",
+              "longType": "lnrpc.OutPoint",
+              "fullType": "lnrpc.OutPoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "witness_type",
+              "description": "The witness type of the output we're attempting to sweep.",
+              "label": "",
+              "type": "WitnessType",
+              "longType": "WitnessType",
+              "fullType": "walletrpc.WitnessType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "amount_sat",
+              "description": "The value of the output we're attempting to sweep.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sat_per_byte",
+              "description": "The fee rate we'll use to sweep the output. The fee rate is only determined\nonce a sweeping transaction for the output is created, so it's possible for\nthis to be 0 before this.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "broadcast_attempts",
+              "description": "The number of broadcast attempts we've made to sweep the output.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "next_broadcast_height",
+              "description": "The next height of the chain at which we'll attempt to broadcast the\nsweep transaction of the output.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "requested_conf_target",
+              "description": "The requested confirmation target for this output.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "requested_sat_per_byte",
+              "description": "The requested fee rate, expressed in sat/byte, for this output.",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "force",
+              "description": "Whether this input must be force-swept. This means that it is swept even\nif it has a negative yield.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PendingSweepsRequest",
+          "longName": "PendingSweepsRequest",
+          "fullName": "walletrpc.PendingSweepsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "PendingSweepsResponse",
+          "longName": "PendingSweepsResponse",
+          "fullName": "walletrpc.PendingSweepsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pending_sweeps",
+              "description": "The set of outputs currently being swept by lnd's central batching engine.",
+              "label": "repeated",
+              "type": "PendingSweep",
+              "longType": "PendingSweep",
+              "fullType": "walletrpc.PendingSweep",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PublishResponse",
+          "longName": "PublishResponse",
+          "fullName": "walletrpc.PublishResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "publish_error",
+              "description": "If blank, then no error occurred and the transaction was successfully\npublished. If not the empty string, then a string representation of the\nbroadcast error.\n\nTODO(roasbeef): map to a proper enum type",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReleaseOutputRequest",
+          "longName": "ReleaseOutputRequest",
+          "fullName": "walletrpc.ReleaseOutputRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "The unique ID that was used to lock the output.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outpoint",
+              "description": "The identifying outpoint of the output being released.",
+              "label": "",
+              "type": "OutPoint",
+              "longType": "lnrpc.OutPoint",
+              "fullType": "lnrpc.OutPoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReleaseOutputResponse",
+          "longName": "ReleaseOutputResponse",
+          "fullName": "walletrpc.ReleaseOutputResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "SendOutputsRequest",
+          "longName": "SendOutputsRequest",
+          "fullName": "walletrpc.SendOutputsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "sat_per_kw",
+              "description": "The number of satoshis per kilo weight that should be used when crafting\nthis transaction.",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outputs",
+              "description": "A slice of the outputs that should be created in the transaction produced.",
+              "label": "repeated",
+              "type": "TxOut",
+              "longType": "signrpc.TxOut",
+              "fullType": "signrpc.TxOut",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "label",
+              "description": "An optional label for the transaction, limited to 500 characters.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "min_confs",
+              "description": "The minimum number of confirmations each one of your outputs used for\nthe transaction must satisfy.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "spend_unconfirmed",
+              "description": "Whether unconfirmed outputs should be used as inputs for the transaction.",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SendOutputsResponse",
+          "longName": "SendOutputsResponse",
+          "fullName": "walletrpc.SendOutputsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "raw_tx",
+              "description": "The serialized transaction sent out on the network.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Transaction",
+          "longName": "Transaction",
+          "fullName": "walletrpc.Transaction",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tx_hex",
+              "description": "The raw serialized transaction.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "label",
+              "description": "An optional label to save with the transaction. Limited to 500 characters.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TxTemplate",
+          "longName": "TxTemplate",
+          "fullName": "walletrpc.TxTemplate",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "inputs",
+              "description": "An optional list of inputs to use. Every input must be an UTXO known to the\nwallet that has not been locked before. The sum of all inputs must be\nsufficiently greater than the sum of all outputs to pay a miner fee with the\nfee rate specified in the parent message.\n\nIf no inputs are specified, coin selection will be performed instead and\ninputs of sufficient value will be added to the resulting PSBT.",
+              "label": "repeated",
+              "type": "OutPoint",
+              "longType": "lnrpc.OutPoint",
+              "fullType": "lnrpc.OutPoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outputs",
+              "description": "A map of all addresses and the amounts to send to in the funded PSBT.",
+              "label": "repeated",
+              "type": "OutputsEntry",
+              "longType": "TxTemplate.OutputsEntry",
+              "fullType": "walletrpc.TxTemplate.OutputsEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "OutputsEntry",
+          "longName": "TxTemplate.OutputsEntry",
+          "fullName": "walletrpc.TxTemplate.OutputsEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UtxoLease",
+          "longName": "UtxoLease",
+          "fullName": "walletrpc.UtxoLease",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "A 32 byte random ID that identifies the lease.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "outpoint",
+              "description": "The identifying outpoint of the output being leased.",
+              "label": "",
+              "type": "OutPoint",
+              "longType": "lnrpc.OutPoint",
+              "fullType": "lnrpc.OutPoint",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "expiration",
+              "description": "The absolute expiration of the output lease represented as a unix timestamp.",
+              "label": "",
+              "type": "uint64",
+              "longType": "uint64",
+              "fullType": "uint64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "WalletKit",
+          "longName": "WalletKit",
+          "fullName": "walletrpc.WalletKit",
+          "description": "WalletKit is a service that gives access to the core functionalities of the\ndaemon's wallet.",
+          "methods": [
+            {
+              "name": "ListUnspent",
+              "description": "$pld.category: `Unspent`\n$pld.short_description: `List utxos available for spending`\n\nListUnspent returns a list of all utxos spendable by the wallet with a\nnumber of confirmations between the specified minimum and maximum.",
+              "requestType": "ListUnspentRequest",
+              "requestLongType": "ListUnspentRequest",
+              "requestFullType": "walletrpc.ListUnspentRequest",
+              "requestStreaming": false,
+              "responseType": "ListUnspentResponse",
+              "responseLongType": "ListUnspentResponse",
+              "responseFullType": "walletrpc.ListUnspentResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "LeaseOutput",
+              "description": "LeaseOutput locks an output to the given ID, preventing it from being\navailable for any future coin selection attempts. The absolute time of the\nlock's expiration is returned. The expiration of the lock can be extended by\nsuccessive invocations of this RPC. Outputs can be unlocked before their\nexpiration through `ReleaseOutput`.",
+              "requestType": "LeaseOutputRequest",
+              "requestLongType": "LeaseOutputRequest",
+              "requestFullType": "walletrpc.LeaseOutputRequest",
+              "requestStreaming": false,
+              "responseType": "LeaseOutputResponse",
+              "responseLongType": "LeaseOutputResponse",
+              "responseFullType": "walletrpc.LeaseOutputResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ReleaseOutput",
+              "description": "ReleaseOutput unlocks an output, allowing it to be available for coin\nselection if it remains unspent. The ID should match the one used to\noriginally lock the output.",
+              "requestType": "ReleaseOutputRequest",
+              "requestLongType": "ReleaseOutputRequest",
+              "requestFullType": "walletrpc.ReleaseOutputRequest",
+              "requestStreaming": false,
+              "responseType": "ReleaseOutputResponse",
+              "responseLongType": "ReleaseOutputResponse",
+              "responseFullType": "walletrpc.ReleaseOutputResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "DeriveNextKey",
+              "description": "DeriveNextKey attempts to derive the *next* key within the key family\n(account in BIP43) specified. This method should return the next external\nchild within this branch.",
+              "requestType": "KeyReq",
+              "requestLongType": "KeyReq",
+              "requestFullType": "walletrpc.KeyReq",
+              "requestStreaming": false,
+              "responseType": "KeyDescriptor",
+              "responseLongType": ".signrpc.KeyDescriptor",
+              "responseFullType": "signrpc.KeyDescriptor",
+              "responseStreaming": false
+            },
+            {
+              "name": "DeriveKey",
+              "description": "DeriveKey attempts to derive an arbitrary key specified by the passed\nKeyLocator.",
+              "requestType": "KeyLocator",
+              "requestLongType": ".signrpc.KeyLocator",
+              "requestFullType": "signrpc.KeyLocator",
+              "requestStreaming": false,
+              "responseType": "KeyDescriptor",
+              "responseLongType": ".signrpc.KeyDescriptor",
+              "responseFullType": "signrpc.KeyDescriptor",
+              "responseStreaming": false
+            },
+            {
+              "name": "NextAddr",
+              "description": "NextAddr returns the next unused address within the wallet.",
+              "requestType": "AddrRequest",
+              "requestLongType": "AddrRequest",
+              "requestFullType": "walletrpc.AddrRequest",
+              "requestStreaming": false,
+              "responseType": "AddrResponse",
+              "responseLongType": "AddrResponse",
+              "responseFullType": "walletrpc.AddrResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "PublishTransaction",
+              "description": "PublishTransaction attempts to publish the passed transaction to the\nnetwork. Once this returns without an error, the wallet will continually\nattempt to re-broadcast the transaction on start up, until it enters the\nchain.",
+              "requestType": "Transaction",
+              "requestLongType": "Transaction",
+              "requestFullType": "walletrpc.Transaction",
+              "requestStreaming": false,
+              "responseType": "PublishResponse",
+              "responseLongType": "PublishResponse",
+              "responseFullType": "walletrpc.PublishResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "SendOutputs",
+              "description": "SendOutputs is similar to the existing sendmany call in Bitcoind, and\nallows the caller to create a transaction that sends to several outputs at\nonce. This is ideal when wanting to batch create a set of transactions.",
+              "requestType": "SendOutputsRequest",
+              "requestLongType": "SendOutputsRequest",
+              "requestFullType": "walletrpc.SendOutputsRequest",
+              "requestStreaming": false,
+              "responseType": "SendOutputsResponse",
+              "responseLongType": "SendOutputsResponse",
+              "responseFullType": "walletrpc.SendOutputsResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "EstimateFee",
+              "description": "EstimateFee attempts to query the internal fee estimator of the wallet to\ndetermine the fee (in sat/kw) to attach to a transaction in order to\nachieve the confirmation target.",
+              "requestType": "EstimateFeeRequest",
+              "requestLongType": "EstimateFeeRequest",
+              "requestFullType": "walletrpc.EstimateFeeRequest",
+              "requestStreaming": false,
+              "responseType": "EstimateFeeResponse",
+              "responseLongType": "EstimateFeeResponse",
+              "responseFullType": "walletrpc.EstimateFeeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "PendingSweeps",
+              "description": "PendingSweeps returns lists of on-chain outputs that lnd is currently\nattempting to sweep within its central batching engine. Outputs with similar\nfee rates are batched together in order to sweep them within a single\ntransaction.\n\nNOTE: Some of the fields within PendingSweepsRequest are not guaranteed to\nremain supported. This is an advanced API that depends on the internals of\nthe UtxoSweeper, so things may change.",
+              "requestType": "PendingSweepsRequest",
+              "requestLongType": "PendingSweepsRequest",
+              "requestFullType": "walletrpc.PendingSweepsRequest",
+              "requestStreaming": false,
+              "responseType": "PendingSweepsResponse",
+              "responseLongType": "PendingSweepsResponse",
+              "responseFullType": "walletrpc.PendingSweepsResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "BumpFee",
+              "description": "BumpFee bumps the fee of an arbitrary input within a transaction. This RPC\ntakes a different approach than bitcoind's bumpfee command. lnd has a\ncentral batching engine in which inputs with similar fee rates are batched\ntogether to save on transaction fees. Due to this, we cannot rely on\nbumping the fee on a specific transaction, since transactions can change at\nany point with the addition of new inputs. The list of inputs that\ncurrently exist within lnd's central batching engine can be retrieved\nthrough the PendingSweeps RPC.\n\nWhen bumping the fee of an input that currently exists within lnd's central\nbatching engine, a higher fee transaction will be created that replaces the\nlower fee transaction through the Replace-By-Fee (RBF) policy. If it\n\nThis RPC also serves useful when wanting to perform a Child-Pays-For-Parent\n(CPFP), where the child transaction pays for its parent's fee. This can be\ndone by specifying an outpoint within the low fee transaction that is under\nthe control of the wallet.\n\nThe fee preference can be expressed either as a specific fee rate or a delta\nof blocks in which the output should be swept on-chain within. If a fee\npreference is not explicitly specified, then an error is returned.\n\nNote that this RPC currently doesn't perform any validation checks on the\nfee preference being provided. For now, the responsibility of ensuring that\nthe new fee preference is sufficient is delegated to the user.",
+              "requestType": "BumpFeeRequest",
+              "requestLongType": "BumpFeeRequest",
+              "requestFullType": "walletrpc.BumpFeeRequest",
+              "requestStreaming": false,
+              "responseType": "BumpFeeResponse",
+              "responseLongType": "BumpFeeResponse",
+              "responseFullType": "walletrpc.BumpFeeResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "ListSweeps",
+              "description": "ListSweeps returns a list of the sweep transactions our node has produced.\nNote that these sweeps may not be confirmed yet, as we record sweeps on\nbroadcast, not confirmation.",
+              "requestType": "ListSweepsRequest",
+              "requestLongType": "ListSweepsRequest",
+              "requestFullType": "walletrpc.ListSweepsRequest",
+              "requestStreaming": false,
+              "responseType": "ListSweepsResponse",
+              "responseLongType": "ListSweepsResponse",
+              "responseFullType": "walletrpc.ListSweepsResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "LabelTransaction",
+              "description": "LabelTransaction adds a label to a transaction. If the transaction already\nhas a label the call will fail unless the overwrite bool is set. This will\noverwrite the exiting transaction label. Labels must not be empty, and\ncannot exceed 500 characters.",
+              "requestType": "LabelTransactionRequest",
+              "requestLongType": "LabelTransactionRequest",
+              "requestFullType": "walletrpc.LabelTransactionRequest",
+              "requestStreaming": false,
+              "responseType": "LabelTransactionResponse",
+              "responseLongType": "LabelTransactionResponse",
+              "responseFullType": "walletrpc.LabelTransactionResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "FundPsbt",
+              "description": "FundPsbt creates a fully populated PSBT that contains enough inputs to fund\nthe outputs specified in the template. There are two ways of specifying a\ntemplate: Either by passing in a PSBT with at least one output declared or\nby passing in a raw TxTemplate message.\n\nIf there are no inputs specified in the template, coin selection is\nperformed automatically. If the template does contain any inputs, it is\nassumed that full coin selection happened externally and no additional\ninputs are added. If the specified inputs aren't enough to fund the outputs\nwith the given fee rate, an error is returned.\n\nAfter either selecting or verifying the inputs, all input UTXOs are locked\nwith an internal app ID.\n\nNOTE: If this method returns without an error, it is the caller's\nresponsibility to either spend the locked UTXOs (by finalizing and then\npublishing the transaction) or to unlock/release the locked UTXOs in case of\nan error on the caller's side.",
+              "requestType": "FundPsbtRequest",
+              "requestLongType": "FundPsbtRequest",
+              "requestFullType": "walletrpc.FundPsbtRequest",
+              "requestStreaming": false,
+              "responseType": "FundPsbtResponse",
+              "responseLongType": "FundPsbtResponse",
+              "responseFullType": "walletrpc.FundPsbtResponse",
+              "responseStreaming": false
+            },
+            {
+              "name": "FinalizePsbt",
+              "description": "FinalizePsbt expects a partial transaction with all inputs and outputs fully\ndeclared and tries to sign all inputs that belong to the wallet. Lnd must be\nthe last signer of the transaction. That means, if there are any unsigned\nnon-witness inputs or inputs without UTXO information attached or inputs\nwithout witness data that do not belong to lnd's wallet, this method will\nfail. If no error is returned, the PSBT is ready to be extracted and the\nfinal TX within to be broadcast.\n\nNOTE: This method does NOT publish the transaction once finalized. It is the\ncaller's responsibility to either publish the transaction on success or\nunlock/release any locked UTXOs in case of an error in this method.",
+              "requestType": "FinalizePsbtRequest",
+              "requestLongType": "FinalizePsbtRequest",
+              "requestFullType": "walletrpc.FinalizePsbtRequest",
+              "requestStreaming": false,
+              "responseType": "FinalizePsbtResponse",
+              "responseLongType": "FinalizePsbtResponse",
+              "responseFullType": "walletrpc.FinalizePsbtResponse",
+              "responseStreaming": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}

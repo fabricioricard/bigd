@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+import "restrpc/anypb/google_any.proto";
+
+package restrpc;
+
+option go_package = "github.com/pkt-cash/pktd/lnd/lnrpc/restrpc";
+
+/*
+ * Comments in this file will be directly parsed into the API
+ * Documentation as descriptions of the associated method, message, or field.
+ * These descriptions should go right above the definition of the object, and
+ * can be in either block or // comment format.
+ *
+ * An RPC method can be matched to an lncli command by placing a line in the
+ * beginning of the description in exactly the following format:
+ * lncli: `methodname`
+ *
+ * Failure to specify the exact name of the command will cause documentation
+ * generation to fail.
+ *
+ * More information on how exactly the gRPC documentation is generated from
+ * this proto file can be found here:
+ * https://github.com/lightninglabs/lightning-api
+ */
+
+message RestEmptyResponse{
+}
+
+//  WebSocket request and response JSon messages
+message WebSocketError {
+    uint32 http_code = 1;
+    string message = 2;
+}
+
+//  WebSocket request and response protobuf messages
+message WebSocketProtobufRequest {
+    // The rest endpoint to send the request to
+    string endpoint = 1;
+    // An arbitrary string which will be reflected back in the response
+    string request_id = 2;
+
+    bool has_more = 3;
+    // The data to post to the REST endpoint, if any.
+    // Make sure this is the correct data structure based on the endpoint you are posting to.
+    google.protobuf.Any payload = 4;
+}
+
+message WebSocketProtobufResponse {
+    string request_id = 1;
+    bool has_more = 2;
+    oneof payload {
+        google.protobuf.Any ok = 3;
+        WebSocketError error = 4;
+    };
+}
