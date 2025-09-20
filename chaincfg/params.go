@@ -11,12 +11,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pkt-cash/pktd/blockchain/packetcrypt/difficulty"
-	"github.com/pkt-cash/pktd/btcutil/er"
-	"github.com/pkt-cash/pktd/wire/protocol"
+	"github.com/bigchain/bigchaind/blockchain/bigcrypt/difficulty"
+	"github.com/bigchain/bigchaind/btcutil/er"
+	"github.com/bigchain/bigchaind/wire/protocol"
 
-	"github.com/pkt-cash/pktd/chaincfg/chainhash"
-	"github.com/pkt-cash/pktd/chaincfg/globalcfg"
+	"github.com/bigchain/bigchaind/chaincfg/chainhash"
+	"github.com/bigchain/bigchaind/chaincfg/globalcfg"
 )
 
 // These variables are the chain proof-of-work limit parameters for each default
@@ -232,15 +232,10 @@ type Params struct {
 var MainNetParams = Params{
 	Name:        "mainnet",
 	Net:         protocol.MainNet,
-	DefaultPort: "8333",
-	DNSSeeds: []DNSSeed{
-		{"seed.bitcoin.sipa.be", true},
-		{"dnsseed.bluematt.me", true},
-		{"dnsseed.bitcoin.dashjr.org", false},
-		{"seed.bitcoinstats.com", true},
-		{"seed.bitnodes.io", false},
-		{"seed.bitcoin.jonasschnelli.ch", true},
-	},
+	DefaultPort: "8433",
+DNSSeeds: []DNSSeed{
+    {"150.136.245.118", false}, // IP da sua VM
+},
 
 	// Chain parameters
 	GlobalConf:               globalcfg.BitcoinDefaults(),
@@ -393,7 +388,7 @@ var RegressionNetParams = Params{
 
 	// Human-readable part for Bech32 encoded segwit addresses, as defined in
 	// BIP 173.
-	Bech32HRPSegwit: "bcrt", // always bcrt for reg test net
+	Bech32HRPSegwit: "rbig", // always bcrt for reg test net
 
 	// Address encoding magics
 	PubKeyHashAddrID: 0x6f, // starts with m or n
@@ -505,20 +500,20 @@ var TestNet3Params = Params{
 	HDCoinType: 1,
 }
 
-// PktTestNetParams defines the network parameters for the test pkt.cash network
+// BIGTestNetParams defines the network parameters for the test bigfootconnect.tech
 // (version 1).  Not to be confused with the regression test network, this
 // network is sometimes simply called "testnet".
-var PktTestNetParams = Params{
-	Name:        "pkttest",
-	Net:         protocol.PktTestNet,
-	DefaultPort: "64512",
+var BIGTestNetParams = Params{
+	Name:        "bigtest",
+	Net:         protocol.BIGTestNet,
+	DefaultPort: "19334",
 	DNSSeeds: []DNSSeed{
-		{"testseed.cjd.li", false},
-		{"testseed.anode.co", false},
+		{"testseed.bigchain.network", false},
+		{"testnode.bigchain.network", false},
 	},
 
 	// Chain parameters
-	GlobalConf: globalcfg.PktDefaults(),
+	GlobalConf: globalcfg.BIGDefaults(),
 	InitialNetworkSteward: []byte{
 		0x00, 0x20, 0xd5, 0xc1, 0x00, 0x5c, 0x0d, 0x40,
 		0x12, 0xd3, 0xae, 0x26, 0x72, 0x31, 0x9e, 0x7f,
@@ -533,27 +528,24 @@ var PktTestNetParams = Params{
 	BIP0066Height:            0,
 	CoinbaseMaturity:         100,
 	SubsidyReductionInterval: 2100000,
-	TargetTimespan:           (time.Hour * 24 * 14) / 10, // 14 days
-	TargetTimePerBlock:       time.Minute,                // 1 minute
-	RetargetAdjustmentFactor: 4,                          // 25% less, 400% more
+	TargetTimespan:           (time.Hour * 24 * 14) / 10,
+	TargetTimePerBlock:       time.Minute,
+	RetargetAdjustmentFactor: 4,
 	ReduceMinDifficulty:      true,
-	MinDiffReductionTime:     time.Minute * 2, // TargetTimePerBlock * 2
-	GenerateSupported:        false,
+	MinDiffReductionTime:     time.Minute * 2,
+	GenerateSupported:        true,
 
 	// Checkpoints ordered from oldest to newest.
 	Checkpoints: []Checkpoint{},
 
 	// Consensus rule change deployments.
-	//
-	// The miner confirmation window is defined as:
-	//   target proof of work timespan / target proof of work spacing
 	RuleChangeActivationThreshold: 1512, // 75% of MinerConfirmationWindow
 	MinerConfirmationWindow:       2016,
 	Deployments: [DefinedDeployments]ConsensusDeployment{
 		DeploymentTestDummy: {
 			BitNumber:  28,
-			StartTime:  1199145601, // January 1, 2008 UTC
-			ExpireTime: 1230767999, // December 31, 2008 UTC
+			StartTime:  1199145601,
+			ExpireTime: 1230767999,
 		},
 		DeploymentCSV: {
 			StartTime:  math.MaxInt64,
@@ -568,13 +560,11 @@ var PktTestNetParams = Params{
 	// Mempool parameters
 	RelayNonStdTxs: true,
 
-	// Human-readable part for Bech32 encoded segwit addresses, as defined in
-	// BIP 173.
-	// https://github.com/satoshilabs/slips/blob/master/slip-0173.md
-	Bech32HRPSegwit: "tpk",
+	// Human-readable part for Bech32 encoded segwit addresses
+	Bech32HRPSegwit: "tbig",
 
 	// Address encoding magics
-	PubKeyHashAddrID:        0x6f, // starts with m or n
+	PubKeyHashAddrID:        0x6f, // starts with m or n (testnet)
 	ScriptHashAddrID:        0xc4, // starts with 2
 	WitnessPubKeyHashAddrID: 0x03, // starts with QW
 	WitnessScriptHashAddrID: 0x28, // starts with T7n
@@ -584,25 +574,23 @@ var PktTestNetParams = Params{
 	HDPrivateKeyID: [4]byte{0x04, 0x35, 0x83, 0x94}, // starts with tprv
 	HDPublicKeyID:  [4]byte{0x04, 0x35, 0x87, 0xcf}, // starts with tpub
 
-	// BIP44 coin type used in the hierarchical deterministic path for
-	// address generation.
+	// BIP44 coin type
 	HDCoinType: 1,
 }
 
-// PktMainNetParams defines the network parameters for the pkt.cash network.
-var PktMainNetParams = Params{
-	Name:        "pkt",
-	Net:         protocol.PktMainNet,
-	DefaultPort: "64764",
+// BIGMainNetParams defines the network parameters for the main BIG network
+var BIGMainNetParams = Params{
+	Name:        "bigchain",
+	Net:         protocol.BIGMainNet,
+	DefaultPort: "19333",
 	DNSSeeds: []DNSSeed{
-		{"seed.cjd.li", false},
-		{"pktdseed.pkt.world", false},
-		{"seed.pkt.pink", false},
-		{"seed.pkt.ai", false},
+		{"seed.bigchain.network", false},
+		{"node.bigchain.network", false},
+		{"dnsseed.bigchain.network", false},
 	},
 
 	// Chain parameters
-	GlobalConf: globalcfg.PktDefaults(),
+	GlobalConf: globalcfg.BIGDefaults(),
 	InitialNetworkSteward: []byte{
 		0x00, 0x20, 0xd5, 0xc1, 0x00, 0x5c, 0x0d, 0x40,
 		0x12, 0xd3, 0xae, 0x26, 0x72, 0x31, 0x9e, 0x7f,
@@ -618,93 +606,24 @@ var PktMainNetParams = Params{
 	BIP0066Height:            0,
 	CoinbaseMaturity:         100,
 	SubsidyReductionInterval: -1,
-	TargetTimespan:           (time.Hour * 24 * 14) / 10, // 1.4 days
-	TargetTimePerBlock:       time.Minute,                // 1 minute
-	RetargetAdjustmentFactor: 4,                          // 25% less, 400% more
+	TargetTimespan:           (time.Hour * 24 * 14) / 10,
+	TargetTimePerBlock:       time.Minute,
+	RetargetAdjustmentFactor: 4,
 	ReduceMinDifficulty:      false,
-	MinDiffReductionTime:     time.Minute * 2, // TargetTimePerBlock * 2
-	GenerateSupported:        false,
+	MinDiffReductionTime:     time.Minute * 2,
+	GenerateSupported:        true,
 
-	// Checkpoints ordered from oldest to newest.
-	// for i in $(seq 1 64); do echo "{$i << 13, newHashFromStr(\"$(pktctl getblockhash $(python -c "print $i << 13"))\")},"; done
-	Checkpoints: []Checkpoint{
-		{1 << 13, newHashFromStr("2b6b3d2951d365f26fd5b5362ab8dd5695ea6f5bd6c19ea9b16eb63a3de95ede")},
-		{2 << 13, newHashFromStr("462d3eee0c728cfbb2ba64b6cc221d3176be10494cade158d45ee6007137ed42")},
-		{3 << 13, newHashFromStr("82138a230458214e98a6c708f32b2ab3fced21bbb2c752dd26250a3cf29cfb15")},
-		{4 << 13, newHashFromStr("9e2f78040c97b244fcbbf9dd528e02f3aaa54705d04408e3079ee98f427cb1fa")},
-		{5 << 13, newHashFromStr("08e6918278fe6d856d8fd17e72724ce0dffd0050497d1fcec6ca1632564be05e")},
-		{6 << 13, newHashFromStr("93750d17acef2c270c90b2a6fc7d0867628ce8d656e54b3ab2057806a6cfe737")},
-		{7 << 13, newHashFromStr("bbc2ef64b1c3963d900b229a5e9120a641c31c55d48ed911f167c23bed660774")},
-		{8 << 13, newHashFromStr("26e5ca803a949a5ee09926a1042408e9c1ca0cfc4950c134791fa5eb2624183c")},
-		{9 << 13, newHashFromStr("461c001b8cab33692f86e34fcd5e2657681be91ac1197139b8304346c0c4993f")},
-		{10 << 13, newHashFromStr("e1b107cdfea386d284741b28a097a3057ce008225b7e42692eb06afd0398f887")},
-		{11 << 13, newHashFromStr("ae399b156d8e33b8ff04baedc5cb8b413d64f6cb2510ed4cbf06af2e0c09a94e")},
-		{12 << 13, newHashFromStr("8745c74b6a105b0173c076adc2728ffae48e6e1c8219e9ab7588e020a10e07cb")},
-		{13 << 13, newHashFromStr("b5eb8b0e48d063110c4423ae62ce679b1c2a67f7ad5ff7c96d277f8ccc118ec6")},
-		{14 << 13, newHashFromStr("94a4ac13860530c9a5237f0ba41afbd86917ebf92fea4d30177bbac201209109")},
-		{15 << 13, newHashFromStr("9c9125ff3fe3592e9cc6f009c2e051a5b7359519d95f7cd9e447352bfbfa9809")},
-		{16 << 13, newHashFromStr("7194f5f6210489ecd6bd0feb84fc72c00a4b4aed33e6e2da5a92faec94d56879")},
-		{17 << 13, newHashFromStr("60d6ceb6590c48d04dbeccd3ee8b8aba6e038f69f81984aafa2f57ae2050e79f")},
-		{18 << 13, newHashFromStr("1ef6428da1d7bdde105250c864edd5001110545fc266e6c1bdace7019a90b76d")},
-		{19 << 13, newHashFromStr("150cd3bd68fbafe3f4f51d05318f5c341a22f48d62b5e3ed952bfd5f681c8743")},
-		{20 << 13, newHashFromStr("3c8a1d44c35bdcde485e8e0238593c4228f40643a89ab02c8766dc837c24ae9d")},
-		{21 << 13, newHashFromStr("31c64a73ffef1340d7869b8338b0e0133f0946322eb2c608e2b85cae889b20d6")},
-		{22 << 13, newHashFromStr("e3efac3c5c12f6a1578496d13dc8b000559c65199ed97e913eea6d4902e65a44")},
-		{23 << 13, newHashFromStr("854051b9d04d91e37541bd8e14500bf5fa9e5ffd014830f9b21ca88e2aa5734c")},
-		{24 << 13, newHashFromStr("594567c710572b7ee01a3013d54efb4ca1a283d05ebbc24d206decb77aeef942")},
-		{25 << 13, newHashFromStr("3ebb1fe776473614228540b3d4cb3e5454f22b4bc26ae8a4aa514465cf0ee2e5")},
-		{26 << 13, newHashFromStr("7cf46a131b05a8b4be4e068a4311a532a9514cb215640d8833bc3b8b52474acc")},
-		{27 << 13, newHashFromStr("238ad730b57a9141813c1f33615157f9af8f00514dcf1b3206fea096dcf6e9d9")},
-		{28 << 13, newHashFromStr("28b4cdf10297b018acb97562dd985c7d5bdbdbb6121768e1cb9c9c7910193c41")},
-		{29 << 13, newHashFromStr("d098b160ceb577dfc28804d3ef516001b1f74c1d34af9a84919c70f044b0a0f1")},
-		{30 << 13, newHashFromStr("4074c0b74e7e0e6b91e4d2ab93faf4b72d1ee03c5777ad91d71e0503e2819709")},
-		{31 << 13, newHashFromStr("2998c6feb6c3e7cb17801c136631bf1167af08c0f869d2827aa833dced585ac7")},
-		{32 << 13, newHashFromStr("1d2d6ece172b67878cdc308aa9d2d1cb684d60f663fd820dd24aaaebc92e1450")},
-		{33 << 13, newHashFromStr("0b094732bd84b5e1b084fbe4e4a8ba008a3bb038c7a6ebae8df025458c47dfc7")},
-		{34 << 13, newHashFromStr("f521cddf3407fe0b9500f39b011840d12f65262fe10c8790b217a952bd80f082")},
-		{35 << 13, newHashFromStr("59da8e25b7113a7b91253eccc36234a4526135add60430addb74796fa8d9f42e")},
-		{36 << 13, newHashFromStr("46ac9323f6a3dd96e69f9f49b26844054265d96265d8f5f7b45ad23ac042ca0f")},
-		{37 << 13, newHashFromStr("dce255e7d16645c0602516282f777f88798840c7fb7cad6882a15025110e2c03")},
-		{38 << 13, newHashFromStr("7bb3249f9b28f67e3671bacbe5e54479ffc5d21207c5e140f8a4fcf8252c8a9e")},
-		{39 << 13, newHashFromStr("46f8778b0613af0a85aea57969e56b895c542080befe8ac96eef00886dbbd62b")},
-		{40 << 13, newHashFromStr("abaff3c0e48b822aec3fa4b3e40ddc3ac7121e1efa96c6883bb7217b49df3d2e")},
-		{41 << 13, newHashFromStr("b92112df054c6cb30ab41f44b903baaa4a4e59a70432ce15a65daf09c96a7242")},
-		{42 << 13, newHashFromStr("9b3267527e78c72f869d9a8f62523a6abec1aaa65fbad6aeba8f6794f7ca72e8")},
-		{43 << 13, newHashFromStr("2c449d98ea67301382edd954cc717d90fd327475f8e7a0cba6099b90c986e317")},
-		{44 << 13, newHashFromStr("c2ddcc7d981bca4a924e82b3dd54a05fd5f4aa72d9731e01b8a7ee570f128831")},
-		{45 << 13, newHashFromStr("3708eb0ece9247df6017afab4cc6b962112fae19c721910470abaf1b82db4d81")},
-		{46 << 13, newHashFromStr("6839f1b500f5aa04d86da0978bb8b3a11174b52eb997d01ee9af0b76bc72c9bd")},
-		{47 << 13, newHashFromStr("83aef519fb6a066a6af06c0b2fcd9886a86e1b74a1060891eb4e1dfcc3a8090d")},
-		{48 << 13, newHashFromStr("a55d3d59fab43d8c28784dbaee31d3710be3fef2cab0fa02c77079bc88d62c95")},
-		{49 << 13, newHashFromStr("6d4148d977e4c75173325ddfb21071667fcd53065248523c2ad057ff99e637f5")},
-		{50 << 13, newHashFromStr("3260b05977afa1745aed8b7dd5710c20962783be9ca14671d749cac0bb4056ac")},
-		{51 << 13, newHashFromStr("a5486087bd1d3f777bc28870226e736193c7eb291289ddfb396e02a898eeb2f5")},
-		{52 << 13, newHashFromStr("64ae244ff7ef2d6e907cb0cb953abda21087100e4450fc57e1166bf6961b7a04")},
-		{53 << 13, newHashFromStr("ae7e257c67bbe717460a0413397b1cf1e41b0b6079e58f13c03f0c7c70c3965c")},
-		{54 << 13, newHashFromStr("0bf356c09f1c1ed095bec19eda61feca281cdef863447b9734615e654346d67c")},
-		{55 << 13, newHashFromStr("2c3b94aed82f6ea46e7fe2187f67f570f56e4f6a4d70a546ff14de9677a70b5f")},
-		{56 << 13, newHashFromStr("3a0668eaa7a1f89e7b5c8c87805f25877fe0e48ff0d28039fb34dc0cdee664f7")},
-		{57 << 13, newHashFromStr("2139d44b557bc114082cbef1c5afc23fbe97edbb0a8d66d2b9b963c37dc09f5c")},
-		{58 << 13, newHashFromStr("2e57f8737b7fa34f1c040de4ba91f172f1acf0f08b5f8c49356faa6ade7964a1")},
-		{59 << 13, newHashFromStr("6c7f3c6aca48f406da38ac82ee1128a9b3c18aa596631bf8192b2488e2b7731d")},
-		{60 << 13, newHashFromStr("74fb58760a49b5469aabc2b193d020d781ea170e4619e605d9dfd7214fa04f12")},
-		{61 << 13, newHashFromStr("3c7b2cebdbadca82edf7df1ff29b5ac33b5d66dcce47bf33c87cb416fb6f84fc")},
-		{62 << 13, newHashFromStr("3615fea59b5e3f4dfdd22666372c17709807ae56506e896940a87627ff67d564")},
-		{63 << 13, newHashFromStr("7c996aff0779b9889acb4a4e46b98a1323e4009288348155ce02b24ee4a4c644")},
-		{64 << 13, newHashFromStr("4acf5a9646f521bb00f568036a4e739e7ecc10fdc12edd8146ab96e00666e0b8")},
-	},
+	// Checkpoints - vazio para começar
+	Checkpoints: []Checkpoint{},
 
 	// Consensus rule change deployments.
-	//
-	// The miner confirmation window is defined as:
-	//   target proof of work timespan / target proof of work spacing
 	RuleChangeActivationThreshold: 1512, // 75% of MinerConfirmationWindow
 	MinerConfirmationWindow:       2016,
 	Deployments: [DefinedDeployments]ConsensusDeployment{
 		DeploymentTestDummy: {
 			BitNumber:  28,
-			StartTime:  1199145601, // January 1, 2008 UTC
-			ExpireTime: 1230767999, // December 31, 2008 UTC
+			StartTime:  1199145601,
+			ExpireTime: 1230767999,
 		},
 		DeploymentCSV: {
 			StartTime:  math.MaxInt64,
@@ -719,26 +638,22 @@ var PktMainNetParams = Params{
 	// Mempool parameters
 	RelayNonStdTxs: false,
 
-	// Human-readable part for Bech32 encoded segwit addresses, as defined in
-	// BIP 173.
-	// https://github.com/satoshilabs/slips/blob/master/slip-0173.md
-	Bech32HRPSegwit: "pkt",
+	// Human-readable part for Bech32 encoded segwit addresses
+	Bech32HRPSegwit: "big",
 
-	// Address encoding magics
-	PubKeyHashAddrID:        0x75, // starts with p
-	ScriptHashAddrID:        0x38, // starts with P
-	WitnessPubKeyHashAddrID: 0xa3, // starts with P2
-	WitnessScriptHashAddrID: 0x22, // starts with PCZ
-	PrivateKeyID:            0xe0, // starts with 8 (uncompressed) or a (compressed)
+	// Address encoding magics - valores personalizados para BIG
+	PubKeyHashAddrID:        0x1a, // Para começar com 'B'
+	ScriptHashAddrID:        0x1f, // Script addresses
+	WitnessPubKeyHashAddrID: 0xa3, 
+	WitnessScriptHashAddrID: 0x22,
+	PrivateKeyID:            0x9a, // Private keys
 
 	// BIP32 hierarchical deterministic extended key magics
-	HDPrivateKeyID: [4]byte{0x6b, 0x86, 0x3b, 0xed}, // starts with PpvtX
-	HDPublicKeyID:  [4]byte{0x6b, 0x85, 0xc5, 0x3f}, // starts with PpubX
+	HDPrivateKeyID: [4]byte{0x04, 0x88, 0xad, 0xe4}, // starts with xprv
+	HDPublicKeyID:  [4]byte{0x04, 0x88, 0xb2, 0x1e}, // starts with xpub
 
-	// BIP44 coin type used in the hierarchical deterministic path for
-	// address generation.
-	// https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-	HDCoinType: 390,
+	// BIP44 coin type - número único para BIG
+	HDCoinType: 999,
 }
 
 // SimNetParams defines the network parameters for the simulation test Bitcoin
@@ -949,11 +864,11 @@ func newHashFromStr(hexStr string) *chainhash.Hash {
 }
 
 func init() {
-	// Register all default networks when the package is initialized.
-	mustRegister(&MainNetParams)
-	mustRegister(&TestNet3Params)
-	mustRegister(&PktTestNetParams)
-	mustRegister(&PktMainNetParams)
-	mustRegister(&RegressionNetParams)
-	mustRegister(&SimNetParams)
+    // Register all default networks when the package is initialized.
+    mustRegister(&MainNetParams)
+    mustRegister(&TestNet3Params)
+    mustRegister(&RegressionNetParams)
+    mustRegister(&SimNetParams)
+    mustRegister(&BIGTestNetParams)
+    mustRegister(&BIGMainNetParams)
 }
