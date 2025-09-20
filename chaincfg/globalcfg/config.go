@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // Package globalcfg contains configuration which must be available
-// anywhere in the project, do not import anything which is part of pktd.
+// anywhere in the project, do not import anything which is part of bigchaind.
 package globalcfg
 
 import (
@@ -18,8 +18,8 @@ const (
 	// This is the default value
 	PowSha256 ProofOfWork = iota
 
-	// PowPacketCrypt is the PoW used by chains such as pkt.cash
-	PowPacketCrypt
+	// PowBigCrypt is the PoW used by chains such as pkt.cash
+	PowBigCrypt
 )
 
 type CoinAmount struct {
@@ -65,30 +65,25 @@ func BitcoinDefaults() Config {
 	}
 }
 
-func PktDefaults() Config {
+func BIGDefaults() Config {
 	return Config{
-		ProofOfWorkAlgorithm: PowPacketCrypt,
-		HasNetworkSteward:    true,
-		UnitsPerCoin:         0x40000000,
-		MaxUnits:             0x40000000 * 6000000000,
+		ProofOfWorkAlgorithm: PowBigCrypt,  // Usar o mesmo algoritmo que PKT
+		HasNetworkSteward:    false,        // Sem steward para simplicidade
+		UnitsPerCoin:         1e8,          // 100.000.000 unidades por BIG (como Bitcoin)
+		MaxUnits:             21e6 * 1e8,   // 21 milhões de BIG máximo (como Bitcoin)
 		Amounts: []CoinAmount{
-			{Name: "PKT", Units: int64(1) << 30, Zeros: 9},
-			{Name: "MPKT", Units: int64(1) << 30 * 1e6, Zeros: 12},
-			{Name: "kPKT", Units: int64(1) << 30 * 1e3, Zeros: 15},
-
-			{Name: "Pibit", Units: int64(1) << 50, Zeros: 15},
-			{Name: "Tibit", Units: int64(1) << 40, Zeros: 12},
-			{Name: "Gibit", Units: int64(1) << 30, Zeros: 9},
-			{Name: "Mibit", Units: int64(1) << 20, Zeros: 6},
-			{Name: "Kibit", Units: int64(1) << 10, Zeros: 3},
-			{Name: "bit", Units: int64(1), Zeros: 0},
+			{Name: "BIG", Units: int64(1e8), Zeros: 8},         // 1 BIG = 100.000.000 units
+			{Name: "MBIG", Units: int64(1e14), Zeros: 14},      // 1 Million BIG
+			{Name: "kBIG", Units: int64(1e11), Zeros: 11},      // 1 Thousand BIG
+			{Name: "mBIG", Units: int64(1e5), Zeros: 5},        // 1 milli BIG
+			{Name: "μBIG", Units: int64(1e2), Zeros: 2},        // 1 micro BIG
+			{Name: "uBIG", Units: int64(1e2), Zeros: 2, ProperName: "μBIG"},
+			{Name: "Bigoshi", Units: 1, Zeros: 0},              // Menor unidade (como Satoshi)
+			{Name: "bigoshi", Units: 1, Zeros: 0, ProperName: "Bigoshi"},
 		},
-		// Just over 10x bitcoin, but using an odd number because CalcPastMedianTime()
-		// algorithm depends on the number being odd
-		MedianTimeBlocks: 111,
-
-		// 1/10th that of bitcoin, because blocks come at a 10x rate
-		MaxTimeOffset: 60 * 12,
+		// Usar configurações similares ao Bitcoin para começar
+		MedianTimeBlocks: 11,    // Como Bitcoin
+		MaxTimeOffset:    2 * 60 * 60,  // 2 horas como Bitcoin
 	}
 }
 
@@ -128,8 +123,8 @@ func GetProofOfWorkAlgorithm() ProofOfWork {
 	return gConf.ProofOfWorkAlgorithm
 }
 
-// IsPacketCryptAllowedVersion tells whether the specified version of PacketCrypt proof is allowed.
-func IsPacketCryptAllowedVersion(version int, blockHeight int32) bool {
+// IsBigCryptAllowedVersion tells whether the specified version of BigCrypt proof is allowed.
+func IsBigCryptAllowedVersion(version int, blockHeight int32) bool {
 	if version > 1 && blockHeight < 113949 {
 		return false
 	} else if version < 2 && blockHeight > 122621 {
