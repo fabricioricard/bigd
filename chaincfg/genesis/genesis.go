@@ -11,9 +11,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/pkt-cash/pktd/chaincfg"
-	"github.com/pkt-cash/pktd/chaincfg/chainhash"
-	"github.com/pkt-cash/pktd/wire"
+	"github.com/bigchain/bigchaind/chaincfg"
+	"github.com/bigchain/bigchaind/chaincfg/chainhash"
+	"github.com/bigchain/bigchaind/wire"
 )
 
 var blockReg = make(map[chainhash.Hash]wire.MsgBlock)
@@ -88,8 +88,8 @@ func init() {
 		Transactions: []*wire.MsgTx{&genesisCoinbaseTx},
 	})
 
-	// pkt
-	register(chaincfg.PktMainNetParams.GenesisHash, blockFromStr(pktTestNetGenesisBlockStr))
+	// big
+register(chaincfg.BIGMainNetParams.GenesisHash, blockFromStr(pktTestNetGenesisBlockStr))
 }
 
 // genesisCoinbaseTx is the coinbase transaction for the genesis blocks for
@@ -143,7 +143,7 @@ func blockFromStr(str string) wire.MsgBlock {
 		panic("failed to decode string")
 	}
 	blk := wire.MsgBlock{}
-	if err := blk.BtcDecode(bytes.NewBuffer(b[8:]), 0, wire.PacketCryptEncoding); err != nil {
+	if err := blk.BtcDecode(bytes.NewBuffer(b[8:]), 0, wire.BigCryptEncoding); err != nil {
 		fmt.Printf("Failed to decode block %v\n", err)
 		panic("failed to decode block")
 	}
